@@ -1,0 +1,32 @@
+--- 
+title: "Анализ данных для лингвистов"
+author: "Г. А. Мороз"
+bibliography:
+- bibliography.bib
+editor_options:
+  chunk_output_type: console
+link-citations: yes
+documentclass: book
+site: bookdown::bookdown_site
+biblio-style: apalike
+---
+
+# О курсе
+
+Материалы для курса Анализа данных для лингвистов, Школа лингвистики НИУ ВШЭ.
+
+* вместо первой лекции можно посмотреть [запись лекции 2021.01.13](https://youtu.be/HmLcBJnfipk)
+
+## Используемые пакеты
+
+```{r}
+packageVersion("tidyverse")
+packageVersion("fitdistrplus")
+packageVersion("mixtools")
+packageVersion("lme4")
+packageVersion("lmerTest")
+packageVersion("car")
+packageVersion("pscl")
+packageVersion("nnet")
+packageVersion("MASS")
+```
