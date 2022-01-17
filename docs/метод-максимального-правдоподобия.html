@@ -31,7 +31,7 @@
   
   
 <link rel="prev" href="распределения.html"/>
-<link rel="next" href="ссылки-на-литературу.html"/>
+<link rel="next" href="модели-смеси-распределений.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -163,6 +163,7 @@ div.csl-indent {
 <li class="chapter" data-level="1" data-path="index.html"><a href="index.html"><i class="fa fa-check"></i><b>1</b> О курсе</a>
 <ul>
 <li class="chapter" data-level="1.1" data-path="index.html"><a href="index.html#используемые-пакеты"><i class="fa fa-check"></i><b>1.1</b> Используемые пакеты</a></li>
+<li class="chapter" data-level="1.2" data-path="index.html"><a href="index.html#домашние-задания"><i class="fa fa-check"></i><b>1.2</b> Домашние задания</a></li>
 </ul></li>
 <li class="part"><span><b>I Основы байесовской статистики</b></span></li>
 <li class="chapter" data-level="2" data-path="распределения.html"><a href="распределения.html"><i class="fa fa-check"></i><b>2</b> Распределения</a>
@@ -188,6 +189,12 @@ div.csl-indent {
 <li class="chapter" data-level="3.3" data-path="метод-максимального-правдоподобия.html"><a href="метод-максимального-правдоподобия.html#пример-с-непрерывным-распределением"><i class="fa fa-check"></i><b>3.3</b> Пример с непрерывным распределением</a></li>
 <li class="chapter" data-level="3.4" data-path="метод-максимального-правдоподобия.html"><a href="метод-максимального-правдоподобия.html#метод-максимального-правдоподобия-mle"><i class="fa fa-check"></i><b>3.4</b> Метод максимального правдоподобия (MLE)</a></li>
 <li class="chapter" data-level="3.5" data-path="метод-максимального-правдоподобия.html"><a href="метод-максимального-правдоподобия.html#логорифм-функции-правдоподобия"><i class="fa fa-check"></i><b>3.5</b> Логорифм функции правдоподобия</a></li>
+</ul></li>
+<li class="chapter" data-level="4" data-path="модели-смеси-распределений.html"><a href="модели-смеси-распределений.html"><i class="fa fa-check"></i><b>4</b> Модели смеси распределений</a>
+<ul>
+<li class="chapter" data-level="4.1" data-path="модели-смеси-распределений.html"><a href="модели-смеси-распределений.html#cмеси-распределений"><i class="fa fa-check"></i><b>4.1</b> Cмеси распределений</a></li>
+<li class="chapter" data-level="4.2" data-path="модели-смеси-распределений.html"><a href="модели-смеси-распределений.html#модели-смеси-распределений-1"><i class="fa fa-check"></i><b>4.2</b> Модели смеси распределений</a></li>
+<li class="chapter" data-level="4.3" data-path="модели-смеси-распределений.html"><a href="модели-смеси-распределений.html#несколько-замечаний"><i class="fa fa-check"></i><b>4.3</b> Несколько замечаний</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="ссылки-на-литературу.html"><a href="ссылки-на-литературу.html"><i class="fa fa-check"></i>Ссылки на литературу</a></li>
 </ul>
@@ -228,12 +235,12 @@ div.csl-indent {
 </p>
 </div>
 <p><img src="da4l_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
-<form name="form_28721" onsubmit="return validate_form_28721()" method="post">
-<input type="text" name="answer_28721"><br><input type="submit" value="check">
+<form name="form_36159" onsubmit="return validate_form_36159()" method="post">
+<input type="text" name="answer_36159"><br><input type="submit" value="check">
 </form>
-<p id="result_28721">
+<p id="result_36159">
 </p>
-<script> function validate_form_28721() {var x, text; var x = document.forms["form_28721"]["answer_28721"].value;if (x == "0.267"){text = 'Correct';} else {text = 'I have a different answer';} document.getElementById('result_28721').innerHTML = text; return false;} </script>
+<script> function validate_form_36159() {var x, text; var x = document.forms["form_36159"]["answer_36159"].value;if (x == "0.267"){text = 'Correct';} else {text = 'I have a different answer';} document.getElementById('result_36159').innerHTML = text; return false;} </script>
 <div class="rmdtask">
 <p>
 Если принять на веру, что биномиальное распределение с параметрами <span class="math inline"><span class="math inline">\(p =\)</span></span> 0.9 описывает, согласно <span class="citation"><span class="citation">(<a href="#ref-rosenbach03" role="doc-biblioref">Rosenbach 2003</a>: 394)</span></span> употребление <em>s</em>-генитивов в британском английском, то какова вероятность наблюдать значения между 300 и 350 генитивов в интервью, содержащее 400 генитивных контекстов? То же самое можно записать, используя математическую нотацию:
@@ -242,12 +249,12 @@ div.csl-indent {
 <span class="math display"><span class="math display">\[P\left(X \in [300,\, 350] | X \sim Binom(n = 400, p = 0.9)\right) = ??\]</span></span> Ответ округлите до трех и меньше знаков после запятой.
 </p>
 </div>
-<form name="form_12172" onsubmit="return validate_form_12172()" method="post">
-<input type="text" name="answer_12172"><br><input type="submit" value="check">
+<form name="form_19103" onsubmit="return validate_form_19103()" method="post">
+<input type="text" name="answer_19103"><br><input type="submit" value="check">
 </form>
-<p id="result_12172">
+<p id="result_19103">
 </p>
-<script> function validate_form_12172() {var x, text; var x = document.forms["form_12172"]["answer_12172"].value;if (x == "0.06"){text = 'Correct';} else {text = 'I have a different answer';} document.getElementById('result_12172').innerHTML = text; return false;} </script>
+<script> function validate_form_19103() {var x, text; var x = document.forms["form_19103"]["answer_19103"].value;if (x == "0.06"){text = 'Correct';} else {text = 'I have a different answer';} document.getElementById('result_19103').innerHTML = text; return false;} </script>
 </div>
 <div id="функция-правдоподобия" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> Функция правдоподобия</h2>
@@ -410,7 +417,7 @@ Rosenbach, Anette. 2003. <span>“Aspects of Iconicity and Economy in the Choice
         </div>
       </div>
 <a href="распределения.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
-<a href="ссылки-на-литературу.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
+<a href="модели-смеси-распределений.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
