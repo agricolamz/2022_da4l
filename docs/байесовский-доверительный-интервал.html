@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Анализ данных для лингвистов</title>
-  <meta name="description" content="Page not found | Анализ данных для лингвистов" />
+  <title>6 Байесовский доверительный интервал | Анализ данных для лингвистов</title>
+  <meta name="description" content="6 Байесовский доверительный интервал | Анализ данных для лингвистов" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Анализ данных для лингвистов" />
+  <meta property="og:title" content="6 Байесовский доверительный интервал | Анализ данных для лингвистов" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Анализ данных для лингвистов" />
+  <meta name="twitter:title" content="6 Байесовский доверительный интервал | Анализ данных для лингвистов" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-
+<link rel="prev" href="байесовский-статистический-вывод.html"/>
+<link rel="next" href="ссылки-на-литературу.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -121,6 +121,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -219,19 +241,106 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="байесовский-доверительный-интервал" class="section level1" number="6">
+<h1><span class="header-section-number">6</span> Байесовский доверительный интервал</h1>
+<p>Рассмотрим простенькую задачу, которую мы видели раньше:</p>
+<div class="rmdtask">
+<p>
+Немного упрощая данные из статьи <span class="citation"><span class="citation">(<a href="#ref-rosenbach03" role="doc-biblioref">Rosenbach 2003</a>: 394)</span></span>, можно сказать что носители британского английского предпочитают <em>s</em>-генитив (90%) <em>of</em>-генитиву (10%). Проведите байесовский апдейт, если Вы наблюдаете в интервью британского актера из 120 контекстов 92 <em>s</em>-генитивов. Априорное распределение берите соразмерное данным. Ответ округлите до трёх или менее знаков после запятой.
+</p>
+</div>
+<div class="sourceCode" id="cb85"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb85-1"><a href="байесовский-доверительный-интервал.html#cb85-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.001</span>),</span>
+<span id="cb85-2"><a href="байесовский-доверительный-интервал.html#cb85-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">dbeta</span>(x, <span class="dv">108</span><span class="sc">+</span><span class="dv">92</span>, <span class="dv">12</span><span class="sc">+</span><span class="dv">28</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb85-3"><a href="байесовский-доверительный-интервал.html#cb85-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y))<span class="sc">+</span></span>
+<span id="cb85-4"><a href="байесовский-доверительный-интервал.html#cb85-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()</span></code></pre></div>
+<p><img src="da4l_files/figure-html/unnamed-chunk-96-1.png" width="672" /></p>
+<div id="фреквентисткий-доверительный-интервал" class="section level2" number="6.1">
+<h2><span class="header-section-number">6.1</span> Фреквентисткий доверительный интервал</h2>
+<p>Фреквентистский доверительный интервал (по-английски confidence interval) основан на правиле трех сигм нормального распределения:</p>
+<p><img src="da4l_files/figure-html/unnamed-chunk-97-1.png" width="672" /></p>
+<p><strong>z-score</strong>:</p>
+<ul>
+<li>95% данных находится в 1.96 стандартных отклонений</li>
+<li>99% данных находится в 2.58 стандартных отклонений</li>
+</ul>
+<p>Доверительный интервал:</p>
+<ul>
+<li>предположим, что данные генеральной совокупности нормально распределены</li>
+<li>тогда доверительные интервалы выборок взятых из генеральной совокупности будут <a href="https://rpsychologist.com/d3/CI/">покрывать среднее генеральной совокупности</a></li>
+</ul>
+<p><span class="math display">\[\bar{x} \pm z \times \frac{\sigma}{\sqrt{n}}\text{, где } z \text{ — это центральная } 1 - \frac{\alpha}{2} \text{ часть данных}\]</span></p>
+<p>Распространение этой логики на биномиальные данные называется интервал Вальда:</p>
+<p><span class="math display">\[\bar{x} = \theta; \sigma = \sqrt{\frac{\theta\times(1-\theta)}{n}}\]</span></p>
+<p>Тогда интервал Вальда:</p>
+<p><span class="math display">\[\theta \pm  z\times\sqrt{\frac{\theta\times(1-\theta)} {n}}\]</span></p>
+<p>Есть только одна проблема: работает он плохо. Его аналоги перечислены в других работ:</p>
+<ul>
+<li>assymptotic method with continuity correction</li>
+<li>Wilson score</li>
+<li>Wilson Score method with continuity correction</li>
+<li>Jeffreys interval</li>
+<li>Clopper–Pearson interval (default in R <code>binom.test()</code>)</li>
+<li>Agresti–Coull interval</li>
+<li>… см. пакет <code>binom</code></li>
+</ul>
+<div class="sourceCode" id="cb86"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb86-1"><a href="байесовский-доверительный-интервал.html#cb86-1" aria-hidden="true" tabindex="-1"></a>low_ci <span class="ot">&lt;-</span> <span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">108</span><span class="sc">+</span><span class="dv">92</span>, <span class="at">n =</span> <span class="dv">108</span><span class="sc">+</span><span class="dv">92</span><span class="sc">+</span><span class="dv">12</span><span class="sc">+</span><span class="dv">28</span>)<span class="sc">$</span>conf.int[<span class="dv">1</span>]</span>
+<span id="cb86-2"><a href="байесовский-доверительный-интервал.html#cb86-2" aria-hidden="true" tabindex="-1"></a>up_ci <span class="ot">&lt;-</span>  <span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">108</span><span class="sc">+</span><span class="dv">92</span>, <span class="at">n =</span> <span class="dv">108</span><span class="sc">+</span><span class="dv">92</span><span class="sc">+</span><span class="dv">12</span><span class="sc">+</span><span class="dv">28</span>)<span class="sc">$</span>conf.int[<span class="dv">2</span>]</span>
+<span id="cb86-3"><a href="байесовский-доверительный-интервал.html#cb86-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb86-4"><a href="байесовский-доверительный-интервал.html#cb86-4" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.001</span>),</span>
+<span id="cb86-5"><a href="байесовский-доверительный-интервал.html#cb86-5" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">dbeta</span>(x, <span class="dv">108</span><span class="sc">+</span><span class="dv">92</span>, <span class="dv">12</span><span class="sc">+</span><span class="dv">28</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb86-6"><a href="байесовский-доверительный-интервал.html#cb86-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y))<span class="sc">+</span></span>
+<span id="cb86-7"><a href="байесовский-доверительный-интервал.html#cb86-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb86-8"><a href="байесовский-доверительный-интервал.html#cb86-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">xmin =</span> low_ci, <span class="at">xmax =</span> up_ci, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>)<span class="sc">+</span></span>
+<span id="cb86-9"><a href="байесовский-доверительный-интервал.html#cb86-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Апостериорное распределение&quot;</span>,</span>
+<span id="cb86-10"><a href="байесовский-доверительный-интервал.html#cb86-10" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;красным фреквентисткий 95% доверительный интервал&quot;</span>,</span>
+<span id="cb86-11"><a href="байесовский-доверительный-интервал.html#cb86-11" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="da4l_files/figure-html/unnamed-chunk-98-1.png" width="672" /></p>
+<p>В базовом пакете функция <code>binom.test()</code> не позволяет выбирать тип доверительного интервала. <code>ci.method = "Clopper-Pearson"</code> возможна, если включить библиотеку <code>mosaic</code>.</p>
+</div>
+<div id="байесовский-доверительный-интервал-1" class="section level2" number="6.2">
+<h2><span class="header-section-number">6.2</span> Байесовский доверительный интервал</h2>
+<p>Байесовский доверительный <span class="math inline">\((100-k)\)</span>-% интервал (по-английски credible interval) — это интервал <span class="math inline">\([\frac{k}{2}, 1-\frac{k}{2}]\)</span> от апостериорного распределения.</p>
+<div class="sourceCode" id="cb87"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb87-1"><a href="байесовский-доверительный-интервал.html#cb87-1" aria-hidden="true" tabindex="-1"></a>low_ci <span class="ot">&lt;-</span> <span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">108</span><span class="sc">+</span><span class="dv">92</span>, <span class="at">n =</span> <span class="dv">108</span><span class="sc">+</span><span class="dv">92</span><span class="sc">+</span><span class="dv">12</span><span class="sc">+</span><span class="dv">28</span>)<span class="sc">$</span>conf.int[<span class="dv">1</span>]</span>
+<span id="cb87-2"><a href="байесовский-доверительный-интервал.html#cb87-2" aria-hidden="true" tabindex="-1"></a>up_ci <span class="ot">&lt;-</span>  <span class="fu">binom.test</span>(<span class="at">x =</span> <span class="dv">108</span><span class="sc">+</span><span class="dv">92</span>, <span class="at">n =</span> <span class="dv">108</span><span class="sc">+</span><span class="dv">92</span><span class="sc">+</span><span class="dv">12</span><span class="sc">+</span><span class="dv">28</span>)<span class="sc">$</span>conf.int[<span class="dv">2</span>]</span>
+<span id="cb87-3"><a href="байесовский-доверительный-интервал.html#cb87-3" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-4"><a href="байесовский-доверительный-интервал.html#cb87-4" aria-hidden="true" tabindex="-1"></a>cred_int_l <span class="ot">&lt;-</span> <span class="fu">qbeta</span>(<span class="fl">0.025</span>, <span class="dv">108</span><span class="sc">+</span><span class="dv">92</span>, <span class="dv">12</span><span class="sc">+</span><span class="dv">28</span>)</span>
+<span id="cb87-5"><a href="байесовский-доверительный-интервал.html#cb87-5" aria-hidden="true" tabindex="-1"></a>cred_int_h <span class="ot">&lt;-</span> <span class="fu">qbeta</span>(<span class="fl">0.975</span>, <span class="dv">108</span><span class="sc">+</span><span class="dv">92</span>, <span class="dv">12</span><span class="sc">+</span><span class="dv">28</span>)</span>
+<span id="cb87-6"><a href="байесовский-доверительный-интервал.html#cb87-6" aria-hidden="true" tabindex="-1"></a></span>
+<span id="cb87-7"><a href="байесовский-доверительный-интервал.html#cb87-7" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">x =</span> <span class="fu">seq</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="at">by =</span> <span class="fl">0.001</span>),</span>
+<span id="cb87-8"><a href="байесовский-доверительный-интервал.html#cb87-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">y =</span> <span class="fu">dbeta</span>(x, <span class="dv">108</span><span class="sc">+</span><span class="dv">92</span>, <span class="dv">12</span><span class="sc">+</span><span class="dv">28</span>)) <span class="sc">%&gt;%</span> </span>
+<span id="cb87-9"><a href="байесовский-доверительный-интервал.html#cb87-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(x, y))<span class="sc">+</span></span>
+<span id="cb87-10"><a href="байесовский-доверительный-интервал.html#cb87-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>()<span class="sc">+</span></span>
+<span id="cb87-11"><a href="байесовский-доверительный-интервал.html#cb87-11" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">y =</span> <span class="dv">0</span>, <span class="at">xmin =</span> low_ci, <span class="at">xmax =</span> up_ci, <span class="at">color =</span> <span class="st">&quot;red&quot;</span>)<span class="sc">+</span></span>
+<span id="cb87-12"><a href="байесовский-доверительный-интервал.html#cb87-12" aria-hidden="true" tabindex="-1"></a>  <span class="fu">annotate</span>(<span class="at">geom =</span> <span class="st">&quot;errorbar&quot;</span>, <span class="at">y =</span> <span class="sc">-</span><span class="dv">1</span>, <span class="at">xmin =</span> cred_int_l, <span class="at">xmax =</span> cred_int_h, <span class="at">color =</span> <span class="st">&quot;lightblue&quot;</span>)<span class="sc">+</span></span>
+<span id="cb87-13"><a href="байесовский-доверительный-интервал.html#cb87-13" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&quot;Апостериорное распределение&quot;</span>,</span>
+<span id="cb87-14"><a href="байесовский-доверительный-интервал.html#cb87-14" aria-hidden="true" tabindex="-1"></a>       <span class="at">subtitle =</span> <span class="st">&quot;красным фреквентисткий 95% доверительный интервал</span><span class="sc">\n</span><span class="st">синим байесовский 95% доверительный интервал&quot;</span>,</span>
+<span id="cb87-15"><a href="байесовский-доверительный-интервал.html#cb87-15" aria-hidden="true" tabindex="-1"></a>       <span class="at">x =</span> <span class="st">&quot;&quot;</span>, <span class="at">y =</span> <span class="st">&quot;&quot;</span>)</span></code></pre></div>
+<p><img src="da4l_files/figure-html/unnamed-chunk-99-1.png" width="672" /></p>
+<div class="rmdtask">
+<p>
+В работе <span class="citation"><span class="citation">(<a href="#ref-coretta2016" role="doc-biblioref">Coretta 2016</a>)</span></span> собраны <a href="https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/Coretta_2017_icelandic.csv">данные</a> длительности исландских гласных. Отфильтруйте данные, произнесенные носителем <code>tt01</code> (переменная <code>speaker</code>), произведите байесовский апдейт данных, моделируя длительность гласных (переменная <code>vowel.dur</code>) нормальным распределением и постройте график. На графике отобразите 80% и 95% байесовский доверительный интервал (при построении интервала я использовал аргумент <code>width = 0.001</code>). В качестве априорного распределения используйте нормальное распределение со средним 87 и стандартным отклонением 25.
+</p>
+</div>
+<p><img src="da4l_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>
+
+</div>
+</div>
+<h3>Ссылки на литературу</h3>
+<div id="refs" class="references csl-bib-body hanging-indent">
+<div id="ref-coretta2016" class="csl-entry">
+Coretta, Stefano. 2016. <span>“Vowel Duration and Aspiration Effects in Icelandic.”</span> University of York.
+</div>
+<div id="ref-rosenbach03" class="csl-entry">
+Rosenbach, Anette. 2003. <span>“Aspects of Iconicity and Economy in the Choice Between the <em>s-</em>Genitive and the <em>of-</em>Genitive in <span>E</span>nglish.”</span> In <em>Determinants of Grammatical Variation in English</em>, edited by Günter Rohdenburg and Britta Mondorf. Berlin, New York: Mouton de Gruyter.
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-
+<a href="байесовский-статистический-вывод.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ссылки-на-литературу.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -252,7 +361,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/agricolamz/2022_da4l/edit/master/%s",
+"link": "https://github.com/agricolamz/2022_da4l/edit/master/05-confudence_intervals.Rmd",
 "text": "Edit"
 },
 "history": {
@@ -276,6 +385,20 @@ gitbook.start({
 });
 </script>
 
+<!-- dynamically load mathjax for compatibility with self-contained -->
+<script>
+  (function () {
+    var script = document.createElement("script");
+    script.type = "text/javascript";
+    var src = "true";
+    if (src === "" || src === "true") src = "https://mathjax.rstudio.com/latest/MathJax.js?config=TeX-MML-AM_CHTML";
+    if (location.protocol !== "file:")
+      if (/^https?:/.test(src))
+        src = src.replace(/^https?:/, '');
+    script.src = src;
+    document.getElementsByTagName("head")[0].appendChild(script);
+  })();
+</script>
 </body>
 
 </html>

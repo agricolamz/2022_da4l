@@ -19,6 +19,8 @@ biblio-style: apalike
 * вместо второй лекции можно посмотреть [запись лекции 2021.01.15](https://youtu.be/V_c_K_wBMuY)
 * вместо третей лекции можно посмотреть [запись лекции 2021.01.20](https://youtu.be/cRc5z9F3XNw)
 * вместо четвертой лекции можно посмотреть [запись лекции 2021.01.22](https://youtu.be/zj-1-invsGM)
+* вместо пятой лекции можно посмотреть [запись лекции 2021.01.27](https://www.youtube.com/watch?v=2YRAdMLT4N0&list=PL_HB2SrKjmMJ-dUBtXUSQBZxRftJJX5uL&index=5)
+* вместо шестой лекции можно посмотреть [запись лекции 2021.01.29](https://www.youtube.com/watch?v=FA-_Qbpmb6s&list=PL_HB2SrKjmMJ-dUBtXUSQBZxRftJJX5uL&index=6)
 
 ## Используемые пакеты
 
