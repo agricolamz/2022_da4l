@@ -223,6 +223,14 @@ div.csl-indent {
 <li class="chapter" data-level="6.1" data-path="байесовский-доверительный-интервал.html"><a href="байесовский-доверительный-интервал.html#фреквентисткий-доверительный-интервал"><i class="fa fa-check"></i><b>6.1</b> Фреквентисткий доверительный интервал</a></li>
 <li class="chapter" data-level="6.2" data-path="байесовский-доверительный-интервал.html"><a href="байесовский-доверительный-интервал.html#байесовский-доверительный-интервал-1"><i class="fa fa-check"></i><b>6.2</b> Байесовский доверительный интервал</a></li>
 </ul></li>
+<li class="chapter" data-level="7" data-path="коэффициент-байеса.html"><a href="коэффициент-байеса.html"><i class="fa fa-check"></i><b>7</b> Коэффициент Байеса</a>
+<ul>
+<li class="chapter" data-level="7.1" data-path="коэффициент-байеса.html"><a href="коэффициент-байеса.html#формула-байеса-опять"><i class="fa fa-check"></i><b>7.1</b> Формула Байеса опять</a></li>
+<li class="chapter" data-level="7.2" data-path="коэффициент-байеса.html"><a href="коэффициент-байеса.html#категориальные-данные"><i class="fa fa-check"></i><b>7.2</b> Категориальные данные</a></li>
+<li class="chapter" data-level="7.3" data-path="коэффициент-байеса.html"><a href="коэффициент-байеса.html#интерпретация-коэфициента-байеса"><i class="fa fa-check"></i><b>7.3</b> <span>Интерпретация коэфициента Байеса</span></a></li>
+<li class="chapter" data-level="7.4" data-path="коэффициент-байеса.html"><a href="коэффициент-байеса.html#биномиальные-данные-1"><i class="fa fa-check"></i><b>7.4</b> Биномиальные данные</a></li>
+</ul></li>
+<li class="chapter" data-level="8" data-path="эмпирическая-байесовская-оценка.html"><a href="эмпирическая-байесовская-оценка.html"><i class="fa fa-check"></i><b>8</b> Эмпирическая байесовская оценка</a></li>
 <li class="chapter" data-level="" data-path="ссылки-на-литературу.html"><a href="ссылки-на-литературу.html"><i class="fa fa-check"></i>Ссылки на литературу</a></li>
 </ul>
 
@@ -283,7 +291,7 @@ $ n_char  &lt;int&gt; 111, 29, 155, 49, 61, 147, 77, 160, 157, 154, 109, 136, 15
 </div>
 <div id="модели-смеси-распределений-1" class="section level2" number="4.2">
 <h2><span class="header-section-number">4.2</span> Модели смеси распределений</h2>
-<p>Такого рода данные можно описать при помощи модели смеси разных распределений. Мы сейчас опишем нормальными распределениями, но, ясно, что семейство распределений можно было бы подобрать и получше.</p>
+<p>Такого рода данные можно описать при помощи модели смеси разных распределений. Мы сейчас опишем нормальными распределениями и будем использовать пакет <code>mixtools</code> (для смесей нормальных распределений лучше использовать пакет <code>mclust</code>), но, ясно, что семейство распределений можно было бы подобрать и получше.</p>
 <div class="sourceCode" id="cb54"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb54-1"><a href="модели-смеси-распределений.html#cb54-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(mixtools)</span>
 <span id="cb54-2"><a href="модели-смеси-распределений.html#cb54-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb54-3"><a href="модели-смеси-распределений.html#cb54-3" aria-hidden="true" tabindex="-1"></a><span class="fu">set.seed</span>(<span class="dv">42</span>)</span>
