@@ -231,6 +231,7 @@ div.csl-indent {
 <li class="chapter" data-level="7.4" data-path="коэффициент-байеса.html"><a href="коэффициент-байеса.html#биномиальные-данные-1"><i class="fa fa-check"></i><b>7.4</b> Биномиальные данные</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="эмпирическая-байесовская-оценка.html"><a href="эмпирическая-байесовская-оценка.html"><i class="fa fa-check"></i><b>8</b> Эмпирическая байесовская оценка</a></li>
+<li class="chapter" data-level="9" data-path="введение-в-mcmc.html"><a href="введение-в-mcmc.html"><i class="fa fa-check"></i><b>9</b> Введение в MCMC</a></li>
 <li class="chapter" data-level="" data-path="ссылки-на-литературу.html"><a href="ссылки-на-литературу.html"><i class="fa fa-check"></i>Ссылки на литературу</a></li>
 </ul>
 
@@ -294,32 +295,32 @@ div.csl-indent {
 Какое значение имеет 25% квантиль нормального распределения со средним в 20 и стандартным отклонением 90? Ответ округлите до трех знаков после запятой.
 </p>
 </div>
-<form name="form_20474" onsubmit="return validate_form_20474()" method="post">
-<input type="text" name="answer_20474"><br><input type="submit" value="check">
+<form name="form_5836" onsubmit="return validate_form_5836()" method="post">
+<input type="text" name="answer_5836"><br><input type="submit" value="check">
 </form>
-<p id="result_20474">
+<p id="result_5836">
 </p>
-<script> function validate_form_20474() {var x, text; var x = document.forms["form_20474"]["answer_20474"].value;if (x == "-40.704"){text = 'Correct';} else {text = 'I have a different answer';} document.getElementById('result_20474').innerHTML = text; return false;} </script>
+<script> function validate_form_5836() {var x, text; var x = document.forms["form_5836"]["answer_5836"].value;if (x == "-40.704"){text = 'Correct';} else {text = 'I have a different answer';} document.getElementById('result_5836').innerHTML = text; return false;} </script>
 <div class="rmdtask">
 <p>
 Данные из базы данных фонетических инвентарей PHOIBLE <span class="citation"><span class="citation">(<a href="#ref-phoible" role="doc-biblioref">Moran, McCloy, and Wright 2014</a>)</span></span>, достаточно сильно упрощая, можно описать нормальным распределением со средним 35 фонем и стандартным отклонением 13. Если мы ничего не знаем про язык, оцените с какой вероятностью, согласно этой модели произвольно взятый язык окажется в промежутке между 25 и 50 фонемами? Ответ округлите до трех знаков после запятой.
 </p>
 </div>
-<form name="form_67352" onsubmit="return validate_form_67352()" method="post">
-<input type="text" name="answer_67352"><br><input type="submit" value="check">
+<form name="form_70745" onsubmit="return validate_form_70745()" method="post">
+<input type="text" name="answer_70745"><br><input type="submit" value="check">
 </form>
-<p id="result_67352">
+<p id="result_70745">
 </p>
-<script> function validate_form_67352() {var x, text; var x = document.forms["form_67352"]["answer_67352"].value;if (x == "0.655"){text = 'Correct';} else {text = 'I have a different answer';} document.getElementById('result_67352').innerHTML = text; return false;} </script>
+<script> function validate_form_70745() {var x, text; var x = document.forms["form_70745"]["answer_70745"].value;if (x == "0.655"){text = 'Correct';} else {text = 'I have a different answer';} document.getElementById('result_70745').innerHTML = text; return false;} </script>
 <div class="rmdtask">
 <p>
 Какие есть недостатки у модели из предыдущего задания?
 </p>
 </div>
-<p id="hint_140853", onclick="return show_hint_140853()">ответы:</p>
-<p id="result_140853">
+<p id="hint_131299", onclick="return show_hint_131299()">ответы:</p>
+<p id="result_131299">
 </p>
-<script> function show_hint_140853() {var x = document.getElementById("result_140853").innerHTML;if(!x){document.getElementById('result_140853').innerHTML = '<p id="hint_18899", onclick="return show_hint_18899()">недостаток 1</p><p id="result_18899"></p><p id="hint_8551", onclick="return show_hint_8551()">недостаток 2</p><p id="result_8551"></p>';}else {document.getElementById("result_140853").innerHTML = "";}}function show_hint_18899() {var x = document.getElementById("result_18899").innerHTML;if(!x){document.getElementById('result_18899').innerHTML = 'Согласно данной модели, количество фонем в языках может принимать значение равное любому действительному числу, в то время как в данных мы наблюдаем только целые числа.';}else {document.getElementById("result_18899").innerHTML = "";}}function show_hint_8551() {var x = document.getElementById("result_8551").innerHTML;if(!x){document.getElementById('result_8551').innerHTML = 'Данная модель предсказывает, что количество фонем 0.4% языков  меньше нуля, что представляется невозможным с точки зрения лингвистики.';}else {document.getElementById("result_8551").innerHTML = "";}}</script>
+<script> function show_hint_131299() {var x = document.getElementById("result_131299").innerHTML;if(!x){document.getElementById('result_131299').innerHTML = '<p id="hint_50616", onclick="return show_hint_50616()">недостаток 1</p><p id="result_50616"></p><p id="hint_44456", onclick="return show_hint_44456()">недостаток 2</p><p id="result_44456"></p>';}else {document.getElementById("result_131299").innerHTML = "";}}function show_hint_50616() {var x = document.getElementById("result_50616").innerHTML;if(!x){document.getElementById('result_50616').innerHTML = 'Согласно данной модели, количество фонем в языках может принимать значение равное любому действительному числу, в то время как в данных мы наблюдаем только целые числа.';}else {document.getElementById("result_50616").innerHTML = "";}}function show_hint_44456() {var x = document.getElementById("result_44456").innerHTML;if(!x){document.getElementById('result_44456').innerHTML = 'Данная модель предсказывает, что количество фонем 0.4% языков  меньше нуля, что представляется невозможным с точки зрения лингвистики.';}else {document.getElementById("result_44456").innerHTML = "";}}</script>
 </div>
 <div id="дискретные-переменные" class="section level2" number="2.2">
 <h2><span class="header-section-number">2.2</span> Дискретные переменные</h2>
@@ -340,23 +341,23 @@ div.csl-indent {
 Немного упрощая данные из статьи <span class="citation"><span class="citation">(<a href="#ref-rosenbach03" role="doc-biblioref">Rosenbach 2003</a>: 394)</span></span>, можно сказать что носители британского английского предпочитают <em>s</em>-генитив (90%) <em>of</em>-генитиву (10%). Какова вероятность, согласно этим данным, что в интервью британского актера из 118 контекстов будет 102 <em>s</em>-генитивов? Ответ округлите до трёх ИЛИ МЕНЕЕ знаков после запятой.
 </p>
 </div>
-<form name="form_46666" onsubmit="return validate_form_46666()" method="post">
-<input type="text" name="answer_46666"><br><input type="submit" value="check">
+<form name="form_51026" onsubmit="return validate_form_51026()" method="post">
+<input type="text" name="answer_51026"><br><input type="submit" value="check">
 </form>
-<p id="result_46666">
+<p id="result_51026">
 </p>
-<script> function validate_form_46666() {var x, text; var x = document.forms["form_46666"]["answer_46666"].value;if (x == "0.05"){text = 'Correct';} else {text = 'I have a different answer';} document.getElementById('result_46666').innerHTML = text; return false;} </script>
+<script> function validate_form_51026() {var x, text; var x = document.forms["form_51026"]["answer_51026"].value;if (x == "0.05"){text = 'Correct';} else {text = 'I have a different answer';} document.getElementById('result_51026').innerHTML = text; return false;} </script>
 <div class="rmdtask">
 <p>
 А какое значение количества <em>s</em>-генитивов наиболее ожидаемо, согласно этой модели?
 </p>
 </div>
-<form name="form_44967" onsubmit="return validate_form_44967()" method="post">
-<input type="text" name="answer_44967"><br><input type="submit" value="check">
+<form name="form_79543" onsubmit="return validate_form_79543()" method="post">
+<input type="text" name="answer_79543"><br><input type="submit" value="check">
 </form>
-<p id="result_44967">
+<p id="result_79543">
 </p>
-<script> function validate_form_44967() {var x, text; var x = document.forms["form_44967"]["answer_44967"].value;if (x == "107"){text = 'Correct';} else {text = 'I have a different answer';} document.getElementById('result_44967').innerHTML = text; return false;} </script>
+<script> function validate_form_79543() {var x, text; var x = document.forms["form_79543"]["answer_79543"].value;if (x == "107"){text = 'Correct';} else {text = 'I have a different answer';} document.getElementById('result_79543').innerHTML = text; return false;} </script>
 </div>
 <div id="геометрическое-распределение" class="section level3" number="2.2.2">
 <h3><span class="header-section-number">2.2.2</span> Геометрическое распределение</h3>
@@ -375,12 +376,12 @@ div.csl-indent {
 Приняв модель из <span class="citation"><span class="citation">(<a href="#ref-rosenbach03" role="doc-biblioref">Rosenbach 2003</a>: 394)</span></span>, какова вероятность, что в интервью с британским актером первый <em>of</em>-генитив будет третьим по счету?
 </p>
 </div>
-<form name="form_43477" onsubmit="return validate_form_43477()" method="post">
-<input type="text" name="answer_43477"><br><input type="submit" value="check">
+<form name="form_9110" onsubmit="return validate_form_9110()" method="post">
+<input type="text" name="answer_9110"><br><input type="submit" value="check">
 </form>
-<p id="result_43477">
+<p id="result_9110">
 </p>
-<script> function validate_form_43477() {var x, text; var x = document.forms["form_43477"]["answer_43477"].value;if (x == "0.081"){text = 'Correct';} else {text = 'I have a different answer';} document.getElementById('result_43477').innerHTML = text; return false;} </script>
+<script> function validate_form_9110() {var x, text; var x = document.forms["form_9110"]["answer_9110"].value;if (x == "0.081"){text = 'Correct';} else {text = 'I have a different answer';} document.getElementById('result_9110').innerHTML = text; return false;} </script>
 </div>
 <div id="распределение-пуассона" class="section level3" number="2.2.3">
 <h3><span class="header-section-number">2.2.3</span> Распределение Пуассона</h3>

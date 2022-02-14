@@ -1,0 +1,25 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+[//]: # https://www.youtube.com/watch?v=1qeXD4NQ4To
+
+# Введение в MCMC
+
+```{r setup08, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+library(tidyverse)
+theme_set(theme_bw())
+```
+
+```{r}
+library(tidyverse)
+```
+
+
+
+```{r, eval=FALSE}
+shiny::runGitHub("agricolamz/mcmc_shiny")
+```
+
