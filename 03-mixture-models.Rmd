@@ -17,7 +17,7 @@ theme_set(theme_bw())
 Не все переменные выглядят так же красиво, как распределения из учебников статистики. Для примера возьмем датасет, который содержит спамерские и обычные смс-сообщения, выложенный UCI Machine Learning [на kaggle](https://www.kaggle.com/uciml/sms-spam-collection-dataset). Посчитаем количество символов в сообщениях:
 
 ```{r}
-spam_sms <- read_csv("https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/spam_sms.csv")
+spam_sms <- read_csv("https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/spam_sms.csv")
 
 glimpse(spam_sms)
 
@@ -119,11 +119,11 @@ spam_sms %>%
 Результат не идеальный, но лучше чем помечать как спам каждое 13 сообщение ($747/(4825+747)$).
 
 ```{block, type = "rmdtask"}
-В работе [@coretta2016] собраны [данные](https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/Coretta_2017_icelandic.csv) длительности исландских гласных. Отфильтруйте данные, оставив наблюдения гласного [a] (переменная `vowel`), произнесенные носителем `tt01` (переменная `speaker`) и постройте следующие графики, моделируя длительность гласного (переменная `vowel.dur`) смесью трех нормальных распределений. Как вам кажется, насколько хорошо модель смеси справилась с заданием?
+В работе [@coretta2016] собраны [данные](https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/Coretta_2017_icelandic.csv) длительности исландских гласных. Отфильтруйте данные, оставив наблюдения гласного [a] (переменная `vowel`), произнесенные носителем `tt01` (переменная `speaker`) и постройте следующие графики, моделируя длительность гласного (переменная `vowel.dur`) смесью трех нормальных распределений. Как вам кажется, насколько хорошо модель смеси справилась с заданием?
 ```
 
 ```{r, echo = FALSE, message = FALSE}
-read_csv("https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/Coretta_2017_icelandic.csv") %>% 
+read_csv("https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/Coretta_2017_icelandic.csv") %>% 
   filter(speaker == "tt01", vowel == "a") ->
   vowel_dur
 

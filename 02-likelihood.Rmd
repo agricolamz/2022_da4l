@@ -19,7 +19,7 @@ library(tidyverse)
 ```
 
 ```{r, include=FALSE}
-vowels <- read_csv("https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/phonTools_hillenbrand_1995.csv") 
+vowels <- read_csv("https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/phonTools_hillenbrand_1995.csv") 
 
 vowels %>% 
   summarise(est = fitdistrplus::fitdist(dur, distr = 'lnorm', method = 'mle')$estimate) %>% 
@@ -140,7 +140,7 @@ tibble(p = seq(0, 1, by = 0.01)) %>%
 Мы уже обсуждали, что длительность гласных американского английского из [@hillenbrand95] можно описать логнормальным распределением с параметрами $\ln\mu$  и $\ln\sigma$. Предположим, что $\ln\sigma = 0.342$, построим функцию правдоподобия для $\ln\mu$:
 
 ```{r}
-vowels <- read_csv("https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/phonTools_hillenbrand_1995.csv") 
+vowels <- read_csv("https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/phonTools_hillenbrand_1995.csv") 
 
 tibble(ln_mu = seq(5, 6, by = 0.001)) %>% 
   ggplot(aes(ln_mu)) + 
@@ -174,7 +174,7 @@ fitdist(vowels$dur, distr = 'lnorm', method = 'mle')
 
 * количество андийских слогов в словах и распределение Пуассона
 ```{r}
-andic_syllables <- read_csv("https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/andic_syllables.csv") 
+andic_syllables <- read_csv("https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/andic_syllables.csv") 
 
 andic_syllables %>% 
   filter(language == "Andi") %>% 
@@ -195,7 +195,7 @@ andic_syllables %>%
 ```
 
 ```{r, echo = FALSE}
-df <- read_csv("https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/Coretta_2017_icelandic.csv")
+df <- read_csv("https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/Coretta_2017_icelandic.csv")
 
 df %>% 
   filter(speaker == "tt01",

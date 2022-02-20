@@ -5,7 +5,7 @@ editor_options:
 
 [//]: # https://www.youtube.com/watch?v=1qeXD4NQ4To
 
-# Введение в MCMC
+# Введение в Марковская цепь Монте-Карло
 
 ```{r setup08, include=FALSE}
 knitr::opts_chunk$set(echo = TRUE)
@@ -17,9 +17,116 @@ theme_set(theme_bw())
 library(tidyverse)
 ```
 
+Марковская цепь Монте-Карло (Markov chain Monte Carlo, MCMC) --- это класс алгоритмов для семплирования, которые позволяют моделировать некоторое распределение вероятностей. При моделировании используют разные алгоритмы, мы будем смотреть на примере алгоритма Метрополиса-Гастингса (Metropolis-Hastings).
 
+Для того, чтобы в этом разобраться нам потребуется обсудить:
+
+* метод Монте-Карло;
+* марковские цепи;
+* алгоритма Метрополиса-Гастингса.
+
+## Метод Монте-Карло
+
+
+## Марковские цепи
+
+Марковский процесс
+
+* конечное количество состояний
+* вероятность переходов из одного состояния в другое
+
+Возьмем наш датасет с sms:
+
+```{r}
+sms_pos <- read_csv("https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/spam_sms_pos_lead.csv")
+```
+
+Посмотрим частоты разных частей речи:
+
+```{r, echo=FALSE}
+fitzgerald %>% 
+  count(pos) %>% 
+  mutate(pos = reorder(factor(pos), n)) %>% 
+  ggplot(aes(n, pos))+
+  geom_col(fill = "lightblue")+
+  labs(title = 'Частотность разных частей речи в романе Ф. С. Фитцджеральда "По эту сторону рая"')
+```
+
+Визуализируем матрицу последовательных переходов от части речи одного слова к другому:
+```{r}
+tibble(stage = weather$events, 
+       lead_stage = lead(weather$events, 1)) %>% 
+  table() %>% 
+  prop.table() %>% 
+  as.data.frame() %>% 
+  ggplot(aes(stage, lead_stage, size = Freq, fill = Freq))+
+  geom_raster()+
+  geom_point()+
+  scale_fill_gradient(low="grey95", high="red")+
+  labs(title = 'Матрица переходов погодных событий в Сан Диего в январе')
+```
+
+Сделаем марковскую цепь и визуализируем ее граф:
+```{r, fig.height=10}
+library(markovchain)
+our_mc <- markovchainFit(weather$events)
+our_mc$estimate
+plot(our_mc$estimate)
+```
+
+Теперь мы можем предсказать наше следующее состояние $t_2$ перемножив матрицу начального состояния $t_1$ ($1 \times 4$) на матрицу переходов ($4 \times 4$).
+
+$$t_2 = t_1 \times \text{transitional matrix}$$
+
+Предположим, что наше начальное состояние --- это дождь `Rain`:
+
+```{r}
+t_1 <- matrix(c(0, 1, 0, 0), nrow = 1)
+t_1 * our_mc$estimate # это особая звездочка из пакета markovchain
+```
+
+Понятное дело состояние $t_3$ это обычное произведение состояния $t_2$ и матрицы переходов:
+
+$$t_3 = t_2 \times \text{transitional matrix} = t_1 \times \text{transitional matrix} \times \text{transitional matrix} = t_1 \times \text{transitional matrix}^2$$
+
+Используя полученную модель можно вычислите вероятность каждого из погодных событий на 7-ой день после дождя.
+```{r}
+t_1 * our_mc$estimate ^ 7 # это особые звездочка и крышечка из пакета markovchain
+```
+
+Вообще-то, часто так бывает, что цепь сходиться на каком-то состоянии (состояние эквилибриум из домашнего задания) и дальше не изменяется. Давайте Визуализируем 40 состояний цепи, если начальное состояние --- дождь.
+
+```{r}
+df <- as.data.frame(t_1)
+colnames(df) <- sort(unique(weather$events))
+
+sapply(2:40, function(x){
+  df[x,] <<- as.data.frame(as.matrix(df[1,]) * (our_mc$estimate^(x-1)))
+})
+
+df %>% 
+  mutate(stage = 1:40) %>% 
+  gather(events, value, Fog:Sun) %>% 
+  ggplot(aes(stage, value, color = events))+
+  geom_line(show.legend = FALSE)+
+  directlabels::geom_dl(aes(label = events), method = "last.qp")+
+  labs(title = 'Марковская цепь погодных событий в Сан Диего в январе',
+       caption = "начальное состояние --- дождь (Rain)")
+```
+
+И люди вообще-то научились вычислять такие вещи на основании цепи:
+```{r}
+steadyStates(our_mc$estimate)
+```
+
+[Славная визуализация](http://setosa.io/blog/2014/07/26/markov-chains/index.html) (спасибо за ссылку Марине Дубовой).
+
+## Соединим идеи Марковских цепей и Монте-Карло
 
 ```{r, eval=FALSE}
 shiny::runGitHub("agricolamz/mcmc_shiny")
 ```
 
+## Алгоритма Метрополиса-Гастингса
+
+## `brms`

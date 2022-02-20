@@ -24,7 +24,7 @@ library(tidyverse)
 Рассмотрим пример данных из статьи [@daniel19], в которой аннализировались интервью с людьми из деревени Михалёвская и исследовался ряд консервативных и инновативных  черт в их речи.
 
 ```{r}
-mikhalevskaja <- read_csv("https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/ustya_data.csv")
+mikhalevskaja <- read_csv("https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/ustya_data.csv")
 glimpse(mikhalevskaja)
 ```
 
@@ -129,11 +129,11 @@ mikhalevskaja %>%
 ![](images/empirical_bayes.gif)
 
 ```{block, type = "rmdtask"}
-В работе [@coretta2016] собраны [данные](https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/Coretta_2017_icelandic.csv) длительности исландских гласных. Используя алгоритм максимального правдоподобия и идеи эмперической байесовской оценки, найдите априорное распределение для длительности гласных (переменная `vowel.dur`), используя все наблюдения в датасете и моделируя его нормальным распределением. Дальше проведите байесовский апдейт длительности гласных носителя `tt01` (переменная `speaker`) и нарисуйте 80% доверительный интервал апостериорного распределения.
+В работе [@coretta2016] собраны [данные](https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/Coretta_2017_icelandic.csv) длительности исландских гласных. Используя алгоритм максимального правдоподобия и идеи эмперической байесовской оценки, найдите априорное распределение для длительности гласных (переменная `vowel.dur`), используя все наблюдения в датасете и моделируя его нормальным распределением. Дальше проведите байесовский апдейт длительности гласных носителя `tt01` (переменная `speaker`) и нарисуйте 80% доверительный интервал апостериорного распределения.
 ```
 
 ```{r, echo=FALSE}
-read_csv("https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/Coretta_2017_icelandic.csv") ->
+read_csv("https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/Coretta_2017_icelandic.csv") ->
   vowels
 
 library(fitdistrplus)

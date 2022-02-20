@@ -113,7 +113,7 @@ $$BF_{12}= \frac{P(Data|\theta, M_1))}{P(Data|\theta, M_2))}=\frac{\int P(Data|\
 Для примера обратимся снова к датасету, который содержит спамерские и обычные смс-сообщения, выложенному UCI Machine Learning [на kaggle](https://www.kaggle.com/uciml/sms-spam-collection-dataset), и при помощи пакета `udpipe` токенизируем и определим часть речи:
 
 ```{r, fig.width=9, fig.height=7}
-sms_pos <- read_csv("https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/spam_sms_pos.csv")
+sms_pos <- read_csv("https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/spam_sms_pos.csv")
 glimpse(sms_pos)
 sms_pos %>% 
   group_by(type) %>% 
@@ -192,7 +192,7 @@ integrate(m1, 0, 1)[[1]]/integrate(m2, 0, 1)[[1]]
 ```
 
 ```{block, type = "rmdtask"}
-В работе [@coretta2016] собраны [данные](https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/Coretta_2017_icelandic.csv) длительности исландских гласных (столбец `vowel.dur`). Отфильтруйте данные, произнесенные носителем `tt01` (переменная `speaker`), посчитайте байесовский коэффициент ($B_{12}$) для двух априорных моделей:
+В работе [@coretta2016] собраны [данные](https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/Coretta_2017_icelandic.csv) длительности исландских гласных (столбец `vowel.dur`). Отфильтруйте данные, произнесенные носителем `tt01` (переменная `speaker`), посчитайте байесовский коэффициент ($B_{12}$) для двух априорных моделей:
 
 * нормального распределения со средним 87 и стандартным отклонением 25. ($m_1$)
 * нормального распределения со средним 85 и стандартным отклонением 30. ($m_2$)
@@ -201,7 +201,7 @@ integrate(m1, 0, 1)[[1]]/integrate(m2, 0, 1)[[1]]
 ```
 
 ```{r, results='asis', echo=FALSE}
-read_csv("https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/Coretta_2017_icelandic.csv") %>% 
+read_csv("https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/Coretta_2017_icelandic.csv") %>% 
   filter(speaker == "tt01") ->
   vowels
 

@@ -36,7 +36,7 @@ $$P(θ|Data) \propto P(Data|θ)\times P(θ)$$
 Для примера я взял датасет, который содержит спамерские и обычные смс-сообщения, выложенный UCI Machine Learning [на kaggle](https://www.kaggle.com/uciml/sms-spam-collection-dataset) и при помощи пакета `udpipe` токенизировал и определил часть речи:
 
 ```{r, fig.width=9, fig.height=7}
-sms_pos <- read_csv("https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/spam_sms_pos.csv")
+sms_pos <- read_csv("https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/spam_sms_pos.csv")
 glimpse(sms_pos)
 
 sms_pos %>% 
@@ -133,11 +133,11 @@ tibble(model = c("ham", "spam"),
 
 
 ```{block, type = "rmdtask"}
-Вашего друга похитили а на почту отправили [датасет](https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/weather.csv), в котором записаны данные о погоде из пяти городов. Ваш телефон зазвонил, и друг сказал, что не знает куда его похитили, но за окном легкий дождь (`Rain`). А в какой-то из следующих дней --- сильный дождь (`Rain, Thunderstorm`). Исходя из явно неверного предположения, что погодные условия каждый день не зависят друг от друга, сделайте байесовский апдейт и предположите, в какой город вероятнее всего похитили друга.
+Вашего друга похитили а на почту отправили [датасет](https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/weather.csv), в котором записаны данные о погоде из пяти городов. Ваш телефон зазвонил, и друг сказал, что не знает куда его похитили, но за окном легкий дождь (`Rain`). А в какой-то из следующих дней --- сильный дождь (`Rain, Thunderstorm`). Исходя из явно неверного предположения, что погодные условия каждый день не зависят друг от друга, сделайте байесовский апдейт и предположите, в какой город вероятнее всего похитили друга.
 ```
 
 ```{r, include=FALSE}
-df <- read.csv("https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/weather.csv")
+df <- read.csv("https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/weather.csv")
 df %>%
   count(city, events) %>% 
   group_by(city) %>% 
@@ -369,11 +369,11 @@ shiny::runGitHub("agricolamz/bayes_for_normal_app")
 ```
 
 ```{block, type = "rmdtask"}
-В работе [@coretta2016] собраны [данные](https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/Coretta_2017_icelandic.csv) длительности исландских гласных. Отфильтруйте данные, произнесенные носителем `tt01` (переменная `speaker`), произведите байесовский апдейт данных, моделируя  длительность гласных (переменная `vowel.dur`) нормальным распределением и постройте график. В качестве априорного распределения используйте нормальное распределение со средним 87 и стандартным отклонением 25. 
+В работе [@coretta2016] собраны [данные](https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/Coretta_2017_icelandic.csv) длительности исландских гласных. Отфильтруйте данные, произнесенные носителем `tt01` (переменная `speaker`), произведите байесовский апдейт данных, моделируя  длительность гласных (переменная `vowel.dur`) нормальным распределением и постройте график. В качестве априорного распределения используйте нормальное распределение со средним 87 и стандартным отклонением 25. 
 ```
 
 ```{r, echo=FALSE}
-read_csv("https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/Coretta_2017_icelandic.csv") %>% 
+read_csv("https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/Coretta_2017_icelandic.csv") %>% 
   filter(speaker == "tt01") ->
   vowels
 
