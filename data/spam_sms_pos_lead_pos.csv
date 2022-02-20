@@ -1,4 +1,4 @@
-doc_id,upos,upos2,type
+doc_id,pos,pos2,type
 doc1,VERB,SCONJ,ham
 doc1,SCONJ,VERB,ham
 doc1,VERB,NOUN,ham

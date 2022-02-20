@@ -231,7 +231,14 @@ div.csl-indent {
 <li class="chapter" data-level="7.4" data-path="коэффициент-байеса.html"><a href="коэффициент-байеса.html#биномиальные-данные-1"><i class="fa fa-check"></i><b>7.4</b> Биномиальные данные</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="эмпирическая-байесовская-оценка.html"><a href="эмпирическая-байесовская-оценка.html"><i class="fa fa-check"></i><b>8</b> Эмпирическая байесовская оценка</a></li>
-<li class="chapter" data-level="9" data-path="введение-в-mcmc.html"><a href="введение-в-mcmc.html"><i class="fa fa-check"></i><b>9</b> Введение в MCMC</a></li>
+<li class="chapter" data-level="9" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html"><i class="fa fa-check"></i><b>9</b> Введение в Марковские цепи Монте-Карло</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#метод-монте-карло"><i class="fa fa-check"></i><b>9.1</b> Метод Монте-Карло</a></li>
+<li class="chapter" data-level="9.2" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#марковские-цепи"><i class="fa fa-check"></i><b>9.2</b> Марковские цепи</a></li>
+<li class="chapter" data-level="9.3" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#соединим-идеи-марковских-цепей-и-монте-карло"><i class="fa fa-check"></i><b>9.3</b> Соединим идеи Марковских цепей и Монте-Карло</a></li>
+<li class="chapter" data-level="9.4" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#алгоритма-метрополиса-гастингса"><i class="fa fa-check"></i><b>9.4</b> Алгоритма Метрополиса-Гастингса</a></li>
+<li class="chapter" data-level="9.5" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#brms"><i class="fa fa-check"></i><b>9.5</b> <code>brms</code></a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="ссылки-на-литературу.html"><a href="ссылки-на-литературу.html"><i class="fa fa-check"></i>Ссылки на литературу</a></li>
 </ul>
 
@@ -327,7 +334,7 @@ div.csl-indent {
 <p><img src="da4l_files/figure-html/unnamed-chunk-99-1.png" width="672" /></p>
 <div class="rmdtask">
 <p>
-В работе <span class="citation"><span class="citation">(<a href="#ref-coretta2016" role="doc-biblioref">Coretta 2016</a>)</span></span> собраны <a href="https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/Coretta_2017_icelandic.csv">данные</a> длительности исландских гласных. Отфильтруйте данные, произнесенные носителем <code>tt01</code> (переменная <code>speaker</code>), произведите байесовский апдейт данных, моделируя длительность гласных (переменная <code>vowel.dur</code>) нормальным распределением и постройте график. На графике отобразите 80% и 95% байесовский доверительный интервал (при построении интервала я использовал аргумент <code>width = 0.001</code>). В качестве априорного распределения используйте нормальное распределение со средним 87 и стандартным отклонением 25.
+В работе <span class="citation"><span class="citation">(<a href="#ref-coretta2016" role="doc-biblioref">Coretta 2016</a>)</span></span> собраны <a href="https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/Coretta_2017_icelandic.csv">данные</a> длительности исландских гласных. Отфильтруйте данные, произнесенные носителем <code>tt01</code> (переменная <code>speaker</code>), произведите байесовский апдейт данных, моделируя длительность гласных (переменная <code>vowel.dur</code>) нормальным распределением и постройте график. На графике отобразите 80% и 95% байесовский доверительный интервал (при построении интервала я использовал аргумент <code>width = 0.001</code>). В качестве априорного распределения используйте нормальное распределение со средним 87 и стандартным отклонением 25.
 </p>
 </div>
 <p><img src="da4l_files/figure-html/unnamed-chunk-101-1.png" width="672" /></p>

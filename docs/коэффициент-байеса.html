@@ -231,7 +231,14 @@ div.csl-indent {
 <li class="chapter" data-level="7.4" data-path="коэффициент-байеса.html"><a href="коэффициент-байеса.html#биномиальные-данные-1"><i class="fa fa-check"></i><b>7.4</b> Биномиальные данные</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="эмпирическая-байесовская-оценка.html"><a href="эмпирическая-байесовская-оценка.html"><i class="fa fa-check"></i><b>8</b> Эмпирическая байесовская оценка</a></li>
-<li class="chapter" data-level="9" data-path="введение-в-mcmc.html"><a href="введение-в-mcmc.html"><i class="fa fa-check"></i><b>9</b> Введение в MCMC</a></li>
+<li class="chapter" data-level="9" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html"><i class="fa fa-check"></i><b>9</b> Введение в Марковские цепи Монте-Карло</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#метод-монте-карло"><i class="fa fa-check"></i><b>9.1</b> Метод Монте-Карло</a></li>
+<li class="chapter" data-level="9.2" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#марковские-цепи"><i class="fa fa-check"></i><b>9.2</b> Марковские цепи</a></li>
+<li class="chapter" data-level="9.3" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#соединим-идеи-марковских-цепей-и-монте-карло"><i class="fa fa-check"></i><b>9.3</b> Соединим идеи Марковских цепей и Монте-Карло</a></li>
+<li class="chapter" data-level="9.4" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#алгоритма-метрополиса-гастингса"><i class="fa fa-check"></i><b>9.4</b> Алгоритма Метрополиса-Гастингса</a></li>
+<li class="chapter" data-level="9.5" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#brms"><i class="fa fa-check"></i><b>9.5</b> <code>brms</code></a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="ссылки-на-литературу.html"><a href="ссылки-на-литературу.html"><i class="fa fa-check"></i>Ссылки на литературу</a></li>
 </ul>
 
@@ -335,7 +342,7 @@ div.csl-indent {
 <div id="категориальные-данные" class="section level2" number="7.2">
 <h2><span class="header-section-number">7.2</span> Категориальные данные</h2>
 <p>Для примера обратимся снова к датасету, который содержит спамерские и обычные смс-сообщения, выложенному UCI Machine Learning <a href="https://www.kaggle.com/uciml/sms-spam-collection-dataset">на kaggle</a>, и при помощи пакета <code>udpipe</code> токенизируем и определим часть речи:</p>
-<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="коэффициент-байеса.html#cb95-1" aria-hidden="true" tabindex="-1"></a>sms_pos <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/spam_sms_pos.csv&quot;</span>)</span>
+<div class="sourceCode" id="cb95"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb95-1"><a href="коэффициент-байеса.html#cb95-1" aria-hidden="true" tabindex="-1"></a>sms_pos <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/spam_sms_pos.csv&quot;</span>)</span>
 <span id="cb95-2"><a href="коэффициент-байеса.html#cb95-2" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(sms_pos)</span></code></pre></div>
 <pre><code>Rows: 34
 Columns: 3
@@ -426,7 +433,7 @@ $ n    &lt;dbl&gt; 4329, 5004, 5832, 5707, 1607, 3493, 1676, 12842, 1293, 2424, 
 <pre><code>[1] 0.0672068</code></pre>
 <div class="rmdtask">
 <p>
-В работе <span class="citation"><span class="citation">(<a href="#ref-coretta2016" role="doc-biblioref">Coretta 2016</a>)</span></span> собраны <a href="https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/Coretta_2017_icelandic.csv">данные</a> длительности исландских гласных (столбец <code>vowel.dur</code>). Отфильтруйте данные, произнесенные носителем <code>tt01</code> (переменная <code>speaker</code>), посчитайте байесовский коэффициент (<span class="math inline"><span class="math inline">\(B_{12}\)</span></span>) для двух априорных моделей:
+В работе <span class="citation"><span class="citation">(<a href="#ref-coretta2016" role="doc-biblioref">Coretta 2016</a>)</span></span> собраны <a href="https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/Coretta_2017_icelandic.csv">данные</a> длительности исландских гласных (столбец <code>vowel.dur</code>). Отфильтруйте данные, произнесенные носителем <code>tt01</code> (переменная <code>speaker</code>), посчитайте байесовский коэффициент (<span class="math inline"><span class="math inline">\(B_{12}\)</span></span>) для двух априорных моделей:
 </p>
 <ul>
 <li>

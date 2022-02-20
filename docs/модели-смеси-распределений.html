@@ -231,7 +231,14 @@ div.csl-indent {
 <li class="chapter" data-level="7.4" data-path="коэффициент-байеса.html"><a href="коэффициент-байеса.html#биномиальные-данные-1"><i class="fa fa-check"></i><b>7.4</b> Биномиальные данные</a></li>
 </ul></li>
 <li class="chapter" data-level="8" data-path="эмпирическая-байесовская-оценка.html"><a href="эмпирическая-байесовская-оценка.html"><i class="fa fa-check"></i><b>8</b> Эмпирическая байесовская оценка</a></li>
-<li class="chapter" data-level="9" data-path="введение-в-mcmc.html"><a href="введение-в-mcmc.html"><i class="fa fa-check"></i><b>9</b> Введение в MCMC</a></li>
+<li class="chapter" data-level="9" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html"><i class="fa fa-check"></i><b>9</b> Введение в Марковские цепи Монте-Карло</a>
+<ul>
+<li class="chapter" data-level="9.1" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#метод-монте-карло"><i class="fa fa-check"></i><b>9.1</b> Метод Монте-Карло</a></li>
+<li class="chapter" data-level="9.2" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#марковские-цепи"><i class="fa fa-check"></i><b>9.2</b> Марковские цепи</a></li>
+<li class="chapter" data-level="9.3" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#соединим-идеи-марковских-цепей-и-монте-карло"><i class="fa fa-check"></i><b>9.3</b> Соединим идеи Марковских цепей и Монте-Карло</a></li>
+<li class="chapter" data-level="9.4" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#алгоритма-метрополиса-гастингса"><i class="fa fa-check"></i><b>9.4</b> Алгоритма Метрополиса-Гастингса</a></li>
+<li class="chapter" data-level="9.5" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#brms"><i class="fa fa-check"></i><b>9.5</b> <code>brms</code></a></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="ссылки-на-литературу.html"><a href="ссылки-на-литературу.html"><i class="fa fa-check"></i>Ссылки на литературу</a></li>
 </ul>
 
@@ -255,7 +262,7 @@ div.csl-indent {
 <div id="cмеси-распределений" class="section level2" number="4.1">
 <h2><span class="header-section-number">4.1</span> Cмеси распределений</h2>
 <p>Не все переменные выглядят так же красиво, как распределения из учебников статистики. Для примера возьмем датасет, который содержит спамерские и обычные смс-сообщения, выложенный UCI Machine Learning <a href="https://www.kaggle.com/uciml/sms-spam-collection-dataset">на kaggle</a>. Посчитаем количество символов в сообщениях:</p>
-<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="модели-смеси-распределений.html#cb48-1" aria-hidden="true" tabindex="-1"></a>spam_sms <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/spam_sms.csv&quot;</span>)</span>
+<div class="sourceCode" id="cb48"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb48-1"><a href="модели-смеси-распределений.html#cb48-1" aria-hidden="true" tabindex="-1"></a>spam_sms <span class="ot">&lt;-</span> <span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/spam_sms.csv&quot;</span>)</span>
 <span id="cb48-2"><a href="модели-смеси-распределений.html#cb48-2" aria-hidden="true" tabindex="-1"></a></span>
 <span id="cb48-3"><a href="модели-смеси-распределений.html#cb48-3" aria-hidden="true" tabindex="-1"></a><span class="fu">glimpse</span>(spam_sms)</span></code></pre></div>
 <pre><code>Rows: 5,572
@@ -357,7 +364,7 @@ loglik at estimate:  -29421.36 </code></pre>
 <p>Результат не идеальный, но лучше чем помечать как спам каждое 13 сообщение (<span class="math inline">\(747/(4825+747)\)</span>).</p>
 <div class="rmdtask">
 <p>
-В работе <span class="citation"><span class="citation">(<a href="#ref-coretta2016" role="doc-biblioref">Coretta 2016</a>)</span></span> собраны <a href="https://raw.githubusercontent.com/agricolamz/2021_da4l/master/data/Coretta_2017_icelandic.csv">данные</a> длительности исландских гласных. Отфильтруйте данные, оставив наблюдения гласного [a] (переменная <code>vowel</code>), произнесенные носителем <code>tt01</code> (переменная <code>speaker</code>) и постройте следующие графики, моделируя длительность гласного (переменная <code>vowel.dur</code>) смесью трех нормальных распределений. Как вам кажется, насколько хорошо модель смеси справилась с заданием?
+В работе <span class="citation"><span class="citation">(<a href="#ref-coretta2016" role="doc-biblioref">Coretta 2016</a>)</span></span> собраны <a href="https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/Coretta_2017_icelandic.csv">данные</a> длительности исландских гласных. Отфильтруйте данные, оставив наблюдения гласного [a] (переменная <code>vowel</code>), произнесенные носителем <code>tt01</code> (переменная <code>speaker</code>) и постройте следующие графики, моделируя длительность гласного (переменная <code>vowel.dur</code>) смесью трех нормальных распределений. Как вам кажется, насколько хорошо модель смеси справилась с заданием?
 </p>
 </div>
 <pre><code>number of iterations= 114 </code></pre>

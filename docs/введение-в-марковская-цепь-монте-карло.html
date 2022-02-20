@@ -121,6 +121,28 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
+<style type="text/css">
+/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
+div.csl-bib-body { }
+div.csl-entry {
+  clear: both;
+}
+.hanging div.csl-entry {
+  margin-left:2em;
+  text-indent:-2em;
+}
+div.csl-left-margin {
+  min-width:2em;
+  float:left;
+}
+div.csl-right-inline {
+  margin-left:2em;
+  padding-left:1em;
+}
+div.csl-indent {
+  margin-left: 2em;
+}
+</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -237,7 +259,7 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
             <section class="normal" id="section-">
 <div id="введение-в-марковская-цепь-монте-карло" class="section level1" number="9">
 <h1><span class="header-section-number">9</span> Введение в Марковская цепь Монте-Карло</h1>
-<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="введение-в-марковская-цепь-монте-карло.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<div class="sourceCode" id="cb117"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb117-1"><a href="введение-в-марковская-цепь-монте-карло.html#cb117-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
 <p>Марковская цепь Монте-Карло (Markov chain Monte Carlo, MCMC) — это класс алгоритмов для семплирования, которые позволяют моделировать некоторое распределение вероятностей. При моделировании используют разные алгоритмы, мы будем смотреть на примере алгоритма Метрополиса-Гастингса (Metropolis-Hastings).</p>
 <p>Для того, чтобы в этом разобраться нам потребуется обсудить:</p>
 <ul>
@@ -255,150 +277,13 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 <li>конечное количество состояний</li>
 <li>вероятность переходов из одного состояния в другое</li>
 </ul>
-<p><a href="http://setosa.io/blog/2014/07/26/markov-chains/index.html">Славная визуализация</a> (спасибо за ссылку Марине Дубовой)</p>
-<p>Возьмем наш датасет с погодой и отфильтруем только Сан Диего:</p>
-<div class="sourceCode" id="cb2"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb2-1"><a href="введение-в-марковская-цепь-монте-карло.html#cb2-1" aria-hidden="true" tabindex="-1"></a><span class="fu">read_csv</span>(<span class="st">&quot;https://raw.githubusercontent.com/agricolamz/2019_BayesDan_winter/master/datasets/weather.csv&quot;</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb2-2"><a href="введение-в-марковская-цепь-монте-карло.html#cb2-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">select</span>(city, date, events) <span class="sc">%&gt;%</span> </span>
-<span id="cb2-3"><a href="введение-в-марковская-цепь-монте-карло.html#cb2-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">filter</span>(city <span class="sc">==</span> <span class="st">&quot;San Diego&quot;</span>) <span class="ot">-&gt;</span></span>
-<span id="cb2-4"><a href="введение-в-марковская-цепь-монте-карло.html#cb2-4" aria-hidden="true" tabindex="-1"></a>  weather</span></code></pre></div>
-<pre><code>## Rows: 155 Columns: 25</code></pre>
-<pre><code>## ── Column specification ────────────────────────────────────────────────────────
-## Delimiter: &quot;,&quot;
-## chr   (2): city, events
-## dbl  (22): year, month, day, high_temp, avg_temp, low_temp, high_dewpt, avg_...
-## date  (1): date</code></pre>
-<pre><code>## 
-## ℹ Use `spec()` to retrieve the full column specification for this data.
-## ℹ Specify the column types or set `show_col_types = FALSE` to quiet this message.</code></pre>
-<div class="sourceCode" id="cb6"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb6-1"><a href="введение-в-марковская-цепь-монте-карло.html#cb6-1" aria-hidden="true" tabindex="-1"></a>weather <span class="sc">%&gt;%</span> </span>
-<span id="cb6-2"><a href="введение-в-марковская-цепь-монте-карло.html#cb6-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, events))<span class="sc">+</span></span>
-<span id="cb6-3"><a href="введение-в-марковская-цепь-монте-карло.html#cb6-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="da4l_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
-<p>Давайте считать, что <code>NA</code> — это солнце.</p>
-<div class="sourceCode" id="cb7"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb7-1"><a href="введение-в-марковская-цепь-монте-карло.html#cb7-1" aria-hidden="true" tabindex="-1"></a>weather <span class="sc">%&gt;%</span> </span>
-<span id="cb7-2"><a href="введение-в-марковская-цепь-монте-карло.html#cb7-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">events =</span> <span class="fu">ifelse</span>(<span class="fu">is.na</span>(events), <span class="st">&quot;Sun&quot;</span>, events)) <span class="ot">-&gt;</span></span>
-<span id="cb7-3"><a href="введение-в-марковская-цепь-монте-карло.html#cb7-3" aria-hidden="true" tabindex="-1"></a>  weather</span>
-<span id="cb7-4"><a href="введение-в-марковская-цепь-монте-карло.html#cb7-4" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb7-5"><a href="введение-в-марковская-цепь-монте-карло.html#cb7-5" aria-hidden="true" tabindex="-1"></a>weather<span class="sc">%&gt;%</span> </span>
-<span id="cb7-6"><a href="введение-в-марковская-цепь-монте-карло.html#cb7-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(date, events))<span class="sc">+</span></span>
-<span id="cb7-7"><a href="введение-в-марковская-цепь-монте-карло.html#cb7-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()</span></code></pre></div>
-<p><img src="da4l_files/figure-html/unnamed-chunk-3-1.png" width="672" /></p>
-<p>Визуализируем частоты разных погодных событий в Сан Диего:</p>
-<div class="sourceCode" id="cb8"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb8-1"><a href="введение-в-марковская-цепь-монте-карло.html#cb8-1" aria-hidden="true" tabindex="-1"></a>weather <span class="sc">%&gt;%</span> </span>
-<span id="cb8-2"><a href="введение-в-марковская-цепь-монте-карло.html#cb8-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">count</span>(events) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-3"><a href="введение-в-марковская-цепь-монте-карло.html#cb8-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">events =</span> <span class="fu">reorder</span>(<span class="fu">factor</span>(events), n)) <span class="sc">%&gt;%</span> </span>
-<span id="cb8-4"><a href="введение-в-марковская-цепь-монте-карло.html#cb8-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(events, n))<span class="sc">+</span></span>
-<span id="cb8-5"><a href="введение-в-марковская-цепь-монте-карло.html#cb8-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_col</span>(<span class="at">fill =</span> <span class="st">&quot;lightblue&quot;</span>)<span class="sc">+</span></span>
-<span id="cb8-6"><a href="введение-в-марковская-цепь-монте-карло.html#cb8-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">coord_flip</span>()</span></code></pre></div>
-<p><img src="da4l_files/figure-html/unnamed-chunk-4-1.png" width="672" /></p>
-<p>Визуализируем матрицу последовательных переходов разных погодных событий:</p>
-<div class="sourceCode" id="cb9"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb9-1"><a href="введение-в-марковская-цепь-монте-карло.html#cb9-1" aria-hidden="true" tabindex="-1"></a><span class="fu">tibble</span>(<span class="at">stage =</span> weather<span class="sc">$</span>events, </span>
-<span id="cb9-2"><a href="введение-в-марковская-цепь-монте-карло.html#cb9-2" aria-hidden="true" tabindex="-1"></a>       <span class="at">lead_stage =</span> <span class="fu">lead</span>(weather<span class="sc">$</span>events, <span class="dv">1</span>)) <span class="sc">%&gt;%</span> </span>
-<span id="cb9-3"><a href="введение-в-марковская-цепь-монте-карло.html#cb9-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">table</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb9-4"><a href="введение-в-марковская-цепь-монте-карло.html#cb9-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">prop.table</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb9-5"><a href="введение-в-марковская-цепь-монте-карло.html#cb9-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">as.data.frame</span>() <span class="sc">%&gt;%</span> </span>
-<span id="cb9-6"><a href="введение-в-марковская-цепь-монте-карло.html#cb9-6" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(stage, lead_stage, <span class="at">size =</span> Freq, <span class="at">fill =</span> Freq))<span class="sc">+</span></span>
-<span id="cb9-7"><a href="введение-в-марковская-цепь-монте-карло.html#cb9-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_raster</span>()<span class="sc">+</span></span>
-<span id="cb9-8"><a href="введение-в-марковская-цепь-монте-карло.html#cb9-8" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_point</span>()<span class="sc">+</span></span>
-<span id="cb9-9"><a href="введение-в-марковская-цепь-монте-карло.html#cb9-9" aria-hidden="true" tabindex="-1"></a>  <span class="fu">scale_fill_gradient</span>(<span class="at">low=</span><span class="st">&quot;grey95&quot;</span>, <span class="at">high=</span><span class="st">&quot;red&quot;</span>)<span class="sc">+</span></span>
-<span id="cb9-10"><a href="введение-в-марковская-цепь-монте-карло.html#cb9-10" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Матрица переходов погодных событий в Сан Диего в январе&#39;</span>)</span></code></pre></div>
-<p><img src="da4l_files/figure-html/unnamed-chunk-5-1.png" width="672" /></p>
-<p>Сделаем марковскую цепь и визуализируем ее граф:</p>
-<div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="введение-в-марковская-цепь-монте-карло.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(markovchain)</span></code></pre></div>
-<pre><code>## Package:  markovchain
-## Version:  0.8.6
-## Date:     2021-05-17
-## BugReport: https://github.com/spedygiorgio/markovchain/issues</code></pre>
-<div class="sourceCode" id="cb12"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb12-1"><a href="введение-в-марковская-цепь-монте-карло.html#cb12-1" aria-hidden="true" tabindex="-1"></a>our_mc <span class="ot">&lt;-</span> <span class="fu">markovchainFit</span>(weather<span class="sc">$</span>events)</span>
-<span id="cb12-2"><a href="введение-в-марковская-цепь-монте-карло.html#cb12-2" aria-hidden="true" tabindex="-1"></a>our_mc<span class="sc">$</span>estimate</span></code></pre></div>
-<pre><code>## MLE Fit 
-##  A  4 - dimensional discrete Markov Chain defined by the following states: 
-##  Fog, Rain, Rain , Thunderstorm, Sun 
-##  The transition matrix  (by rows)  is defined as follows: 
-##                            Fog      Rain Rain , Thunderstorm       Sun
-## Fog                 0.00000000 1.0000000           0.0000000 0.0000000
-## Rain                0.00000000 0.2222222           0.2222222 0.5555556
-## Rain , Thunderstorm 0.00000000 1.0000000           0.0000000 0.0000000
-## Sun                 0.05263158 0.2631579           0.0000000 0.6842105</code></pre>
-<div class="sourceCode" id="cb14"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb14-1"><a href="введение-в-марковская-цепь-монте-карло.html#cb14-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(our_mc<span class="sc">$</span>estimate)</span></code></pre></div>
-<p><img src="da4l_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
-<p>Теперь мы можем предсказать наше следующее состояние <span class="math inline">\(t_2\)</span> перемножив матрицу начального состояния <span class="math inline">\(t_1\)</span> (<span class="math inline">\(1 \times 4\)</span>) на матрицу переходов (<span class="math inline">\(4 \times 4\)</span>).</p>
-<p><span class="math display">\[t_2 = t_1 \times \text{transitional matrix}\]</span></p>
-<p>Предположим, что наше начальное состояние — это дождь <code>Rain</code>:</p>
-<div class="sourceCode" id="cb15"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb15-1"><a href="введение-в-марковская-цепь-монте-карло.html#cb15-1" aria-hidden="true" tabindex="-1"></a>t_1 <span class="ot">&lt;-</span> <span class="fu">matrix</span>(<span class="fu">c</span>(<span class="dv">0</span>, <span class="dv">1</span>, <span class="dv">0</span>, <span class="dv">0</span>), <span class="at">nrow =</span> <span class="dv">1</span>)</span>
-<span id="cb15-2"><a href="введение-в-марковская-цепь-монте-карло.html#cb15-2" aria-hidden="true" tabindex="-1"></a>t_1 <span class="sc">*</span> our_mc<span class="sc">$</span>estimate <span class="co"># это особая звездочка из пакета markovchain</span></span></code></pre></div>
-<pre><code>##      Fog      Rain Rain , Thunderstorm       Sun
-## [1,]   0 0.2222222           0.2222222 0.5555556</code></pre>
-<p>Понятное дело состояние <span class="math inline">\(t_3\)</span> это обычное произведение состояния <span class="math inline">\(t_2\)</span> и матрицы переходов:</p>
-<p><span class="math display">\[t_3 = t_2 \times \text{transitional matrix} = t_1 \times \text{transitional matrix} \times \text{transitional matrix} = t_1 \times \text{transitional matrix}^2\]</span></p>
-<p>Используя полученную модель можно вычислите вероятность каждого из погодных событий на 7-ой день после дождя.</p>
-<div class="sourceCode" id="cb17"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb17-1"><a href="введение-в-марковская-цепь-монте-карло.html#cb17-1" aria-hidden="true" tabindex="-1"></a>t_1 <span class="sc">*</span> our_mc<span class="sc">$</span>estimate <span class="sc">^</span> <span class="dv">7</span> <span class="co"># это особые звездочка и крышечка из пакета markovchain</span></span></code></pre></div>
-<pre><code>##             Fog     Rain Rain , Thunderstorm       Sun
-## [1,] 0.03005657 0.324639          0.07273401 0.5725704</code></pre>
-<p>Вообще-то, часто так бывает, что цепь сходиться на каком-то состоянии (состояние эквилибриум из домашнего задания) и дальше не изменяется. Давайте Визуализируем 40 состояний цепи, если начальное состояние — дождь.</p>
-<div class="sourceCode" id="cb19"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb19-1"><a href="введение-в-марковская-цепь-монте-карло.html#cb19-1" aria-hidden="true" tabindex="-1"></a>df <span class="ot">&lt;-</span> <span class="fu">as.data.frame</span>(t_1)</span>
-<span id="cb19-2"><a href="введение-в-марковская-цепь-монте-карло.html#cb19-2" aria-hidden="true" tabindex="-1"></a><span class="fu">colnames</span>(df) <span class="ot">&lt;-</span> <span class="fu">sort</span>(<span class="fu">unique</span>(weather<span class="sc">$</span>events))</span>
-<span id="cb19-3"><a href="введение-в-марковская-цепь-монте-карло.html#cb19-3" aria-hidden="true" tabindex="-1"></a></span>
-<span id="cb19-4"><a href="введение-в-марковская-цепь-монте-карло.html#cb19-4" aria-hidden="true" tabindex="-1"></a><span class="fu">sapply</span>(<span class="dv">2</span><span class="sc">:</span><span class="dv">40</span>, <span class="cf">function</span>(x){</span>
-<span id="cb19-5"><a href="введение-в-марковская-цепь-монте-карло.html#cb19-5" aria-hidden="true" tabindex="-1"></a>  df[x,] <span class="ot">&lt;&lt;-</span> <span class="fu">as.data.frame</span>(<span class="fu">as.matrix</span>(df[<span class="dv">1</span>,]) <span class="sc">*</span> (our_mc<span class="sc">$</span>estimate<span class="sc">^</span>(x<span class="dv">-1</span>)))</span>
-<span id="cb19-6"><a href="введение-в-марковская-цепь-монте-карло.html#cb19-6" aria-hidden="true" tabindex="-1"></a>})</span></code></pre></div>
-<pre><code>##                     [,1]      [,2]       [,3]       [,4]       [,5]      
-## Fog                 0         0.02923977 0.02650388 0.03035072 0.0296548 
-## Rain                0.2222222 0.4178038  0.3039872  0.3386555  0.3214342 
-## Rain , Thunderstorm 0.2222222 0.04938272 0.09284528 0.0675527  0.07525677
-## Sun                 0.5555556 0.5035737  0.5766637  0.5634411  0.5736543 
-##                     [,6]       [,7]       [,8]       [,9]       [,10]     
-## Fog                 0.03019233 0.03005657 0.03013529 0.03011125 0.03012316
-## Rain                0.327303   0.324639   0.325609   0.3251911  0.3253493 
-## Rain , Thunderstorm 0.07142982 0.07273401 0.072142   0.07235756 0.07226468
-## Sun                 0.5710748  0.5725704  0.5721137  0.5723401  0.5722628 
-##                     [,11]      [,12]      [,13]      [,14]      [,15]     
-## Fog                 0.0301191  0.03012094 0.03012027 0.03012056 0.03012045
-## Rain                0.3252832  0.3253088  0.3252983  0.3253024  0.3253007 
-## Rain , Thunderstorm 0.07229985 0.07228515 0.07229084 0.07228851 0.07228942
-## Sun                 0.5722979  0.5722851  0.5722906  0.5722885  0.5722894 
-##                     [,16]      [,17]      [,18]      [,19]      [,20]     
-## Fog                 0.03012049 0.03012048 0.03012048 0.03012048 0.03012048
-## Rain                0.3253014  0.3253011  0.3253012  0.3253012  0.3253012 
-## Rain , Thunderstorm 0.07228905 0.0722892  0.07228914 0.07228916 0.07228915
-## Sun                 0.5722891  0.5722892  0.5722891  0.5722892  0.5722892 
-##                     [,21]      [,22]      [,23]      [,24]      [,25]     
-## Fog                 0.03012048 0.03012048 0.03012048 0.03012048 0.03012048
-## Rain                0.3253012  0.3253012  0.3253012  0.3253012  0.3253012 
-## Rain , Thunderstorm 0.07228916 0.07228916 0.07228916 0.07228916 0.07228916
-## Sun                 0.5722892  0.5722892  0.5722892  0.5722892  0.5722892 
-##                     [,26]      [,27]      [,28]      [,29]      [,30]     
-## Fog                 0.03012048 0.03012048 0.03012048 0.03012048 0.03012048
-## Rain                0.3253012  0.3253012  0.3253012  0.3253012  0.3253012 
-## Rain , Thunderstorm 0.07228916 0.07228916 0.07228916 0.07228916 0.07228916
-## Sun                 0.5722892  0.5722892  0.5722892  0.5722892  0.5722892 
-##                     [,31]      [,32]      [,33]      [,34]      [,35]     
-## Fog                 0.03012048 0.03012048 0.03012048 0.03012048 0.03012048
-## Rain                0.3253012  0.3253012  0.3253012  0.3253012  0.3253012 
-## Rain , Thunderstorm 0.07228916 0.07228916 0.07228916 0.07228916 0.07228916
-## Sun                 0.5722892  0.5722892  0.5722892  0.5722892  0.5722892 
-##                     [,36]      [,37]      [,38]      [,39]     
-## Fog                 0.03012048 0.03012048 0.03012048 0.03012048
-## Rain                0.3253012  0.3253012  0.3253012  0.3253012 
-## Rain , Thunderstorm 0.07228916 0.07228916 0.07228916 0.07228916
-## Sun                 0.5722892  0.5722892  0.5722892  0.5722892</code></pre>
-<div class="sourceCode" id="cb21"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb21-1"><a href="введение-в-марковская-цепь-монте-карло.html#cb21-1" aria-hidden="true" tabindex="-1"></a>df <span class="sc">%&gt;%</span> </span>
-<span id="cb21-2"><a href="введение-в-марковская-цепь-монте-карло.html#cb21-2" aria-hidden="true" tabindex="-1"></a>  <span class="fu">mutate</span>(<span class="at">stage =</span> <span class="dv">1</span><span class="sc">:</span><span class="dv">40</span>) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-3"><a href="введение-в-марковская-цепь-монте-карло.html#cb21-3" aria-hidden="true" tabindex="-1"></a>  <span class="fu">gather</span>(events, value, Fog<span class="sc">:</span>Sun) <span class="sc">%&gt;%</span> </span>
-<span id="cb21-4"><a href="введение-в-марковская-цепь-монте-карло.html#cb21-4" aria-hidden="true" tabindex="-1"></a>  <span class="fu">ggplot</span>(<span class="fu">aes</span>(stage, value, <span class="at">color =</span> events))<span class="sc">+</span></span>
-<span id="cb21-5"><a href="введение-в-марковская-цепь-монте-карло.html#cb21-5" aria-hidden="true" tabindex="-1"></a>  <span class="fu">geom_line</span>(<span class="at">show.legend =</span> <span class="cn">FALSE</span>)<span class="sc">+</span></span>
-<span id="cb21-6"><a href="введение-в-марковская-цепь-монте-карло.html#cb21-6" aria-hidden="true" tabindex="-1"></a>  directlabels<span class="sc">::</span><span class="fu">geom_dl</span>(<span class="fu">aes</span>(<span class="at">label =</span> events), <span class="at">method =</span> <span class="st">&quot;last.qp&quot;</span>)<span class="sc">+</span></span>
-<span id="cb21-7"><a href="введение-в-марковская-цепь-монте-карло.html#cb21-7" aria-hidden="true" tabindex="-1"></a>  <span class="fu">labs</span>(<span class="at">title =</span> <span class="st">&#39;Марковская цепь погодных событий в Сан Диего в январе&#39;</span>,</span>
-<span id="cb21-8"><a href="введение-в-марковская-цепь-монте-карло.html#cb21-8" aria-hidden="true" tabindex="-1"></a>       <span class="at">caption =</span> <span class="st">&quot;начальное состояние --- дождь (Rain)&quot;</span>)</span></code></pre></div>
-<p><img src="da4l_files/figure-html/unnamed-chunk-9-1.png" width="672" /></p>
-<p>И люди вообще-то научились вычислять такие вещи на основании цепи:</p>
-<div class="sourceCode" id="cb22"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb22-1"><a href="введение-в-марковская-цепь-монте-карло.html#cb22-1" aria-hidden="true" tabindex="-1"></a><span class="fu">steadyStates</span>(our_mc<span class="sc">$</span>estimate)</span></code></pre></div>
-<pre><code>##             Fog      Rain Rain , Thunderstorm       Sun
-## [1,] 0.03012048 0.3253012          0.07228916 0.5722892</code></pre>
+<p>Возьмем наш датасет с sms и посмотрим частоты разных частей речи::</p>
+<p><img src="da4l_files/figure-html/unnamed-chunk-128-1.png" width="672" /></p>
+<p><a href="http://setosa.io/blog/2014/07/26/markov-chains/index.html">Славная визуализация</a> (спасибо за ссылку Марине Дубовой).</p>
 </div>
 <div id="соединим-идеи-марковских-цепей-и-монте-карло" class="section level2" number="9.3">
 <h2><span class="header-section-number">9.3</span> Соединим идеи Марковских цепей и Монте-Карло</h2>
-<div class="sourceCode" id="cb24"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb24-1"><a href="введение-в-марковская-цепь-монте-карло.html#cb24-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="st">&quot;agricolamz/mcmc_shiny&quot;</span>)</span></code></pre></div>
+<div class="sourceCode" id="cb118"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb118-1"><a href="введение-в-марковская-цепь-монте-карло.html#cb118-1" aria-hidden="true" tabindex="-1"></a>shiny<span class="sc">::</span><span class="fu">runGitHub</span>(<span class="st">&quot;agricolamz/mcmc_shiny&quot;</span>)</span></code></pre></div>
 </div>
 <div id="алгоритма-метрополиса-гастингса" class="section level2" number="9.4">
 <h2><span class="header-section-number">9.4</span> Алгоритма Метрополиса-Гастингса</h2>
