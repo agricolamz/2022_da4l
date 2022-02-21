@@ -54,6 +54,10 @@
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
+<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
+<script src="libs/viz-1.8.2/viz.js"></script>
+<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
+<script src="libs/grViz-binding-1.0.8/grViz.js"></script>
 
 
 <style type="text/css">
@@ -233,11 +237,17 @@ div.csl-indent {
 <li class="chapter" data-level="8" data-path="эмпирическая-байесовская-оценка.html"><a href="эмпирическая-байесовская-оценка.html"><i class="fa fa-check"></i><b>8</b> Эмпирическая байесовская оценка</a></li>
 <li class="chapter" data-level="9" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html"><i class="fa fa-check"></i><b>9</b> Введение в Марковские цепи Монте-Карло</a>
 <ul>
-<li class="chapter" data-level="9.1" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#метод-монте-карло"><i class="fa fa-check"></i><b>9.1</b> Метод Монте-Карло</a></li>
-<li class="chapter" data-level="9.2" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#марковские-цепи"><i class="fa fa-check"></i><b>9.2</b> Марковские цепи</a></li>
-<li class="chapter" data-level="9.3" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#соединим-идеи-марковских-цепей-и-монте-карло"><i class="fa fa-check"></i><b>9.3</b> Соединим идеи Марковских цепей и Монте-Карло</a></li>
-<li class="chapter" data-level="9.4" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#алгоритма-метрополиса-гастингса"><i class="fa fa-check"></i><b>9.4</b> Алгоритма Метрополиса-Гастингса</a></li>
-<li class="chapter" data-level="9.5" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#brms"><i class="fa fa-check"></i><b>9.5</b> <code>brms</code></a></li>
+<li class="chapter" data-level="9.1" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#марковские-цепи"><i class="fa fa-check"></i><b>9.1</b> Марковские цепи</a></li>
+<li class="chapter" data-level="9.2" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#хакерская-статистика-основано-на-статистика-для-хакеров-джейка-вандерпласа"><i class="fa fa-check"></i><b>9.2</b> Хакерская статистика (основано на <span>“Статистика для хакеров” Джейка Вандерпласа</span>)</a>
+<ul>
+<li class="chapter" data-level="9.2.1" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#биномиальные-данные-2"><i class="fa fa-check"></i><b>9.2.1</b> Биномиальные данные</a></li>
+<li class="chapter" data-level="9.2.2" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#метод-монте-карло"><i class="fa fa-check"></i><b>9.2.2</b> Метод Монте-Карло</a></li>
+</ul></li>
+<li class="chapter" data-level="9.3" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#соединение-идей-марковских-цепей-и-монте-карло"><i class="fa fa-check"></i><b>9.3</b> Соединение идей Марковских цепей и Монте-Карло</a></li>
+<li class="chapter" data-level="9.4" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#brms"><i class="fa fa-check"></i><b>9.4</b> <code>brms</code></a>
+<ul>
+<li class="chapter" data-level="9.4.1" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#регрессионный-пример"><i class="fa fa-check"></i><b>9.4.1</b> Регрессионный пример</a></li>
+</ul></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="ссылки-на-литературу.html"><a href="ссылки-на-литературу.html"><i class="fa fa-check"></i>Ссылки на литературу</a></li>
 </ul>
@@ -278,12 +288,12 @@ div.csl-indent {
 </p>
 </div>
 <p><img src="da4l_files/figure-html/unnamed-chunk-36-1.png" width="672" /></p>
-<form name="form_15523" onsubmit="return validate_form_15523()" method="post">
-<input type="text" name="answer_15523"><br><input type="submit" value="check">
+<form name="form_25799" onsubmit="return validate_form_25799()" method="post">
+<input type="text" name="answer_25799"><br><input type="submit" value="check">
 </form>
-<p id="result_15523">
+<p id="result_25799">
 </p>
-<script> function validate_form_15523() {var x, text; var x = document.forms["form_15523"]["answer_15523"].value;if (x == "0.267"){text = 'Correct';} else {text = 'I have a different answer';} document.getElementById('result_15523').innerHTML = text; return false;} </script>
+<script> function validate_form_25799() {var x, text; var x = document.forms["form_25799"]["answer_25799"].value;if (x == "0.267"){text = 'Correct';} else {text = 'I have a different answer';} document.getElementById('result_25799').innerHTML = text; return false;} </script>
 <div class="rmdtask">
 <p>
 Если принять на веру, что биномиальное распределение с параметрами <span class="math inline"><span class="math inline">\(p =\)</span></span> 0.9 описывает, согласно <span class="citation"><span class="citation">(<a href="#ref-rosenbach03" role="doc-biblioref">Rosenbach 2003</a>: 394)</span></span> употребление <em>s</em>-генитивов в британском английском, то какова вероятность наблюдать значения между 300 и 350 генитивов в интервью, содержащее 400 генитивных контекстов? То же самое можно записать, используя математическую нотацию:
@@ -292,12 +302,12 @@ div.csl-indent {
 <span class="math display"><span class="math display">\[P\left(X \in [300,\, 350] | X \sim Binom(n = 400, p = 0.9)\right) = ??\]</span></span> Ответ округлите до трех и меньше знаков после запятой.
 </p>
 </div>
-<form name="form_64541" onsubmit="return validate_form_64541()" method="post">
-<input type="text" name="answer_64541"><br><input type="submit" value="check">
+<form name="form_23713" onsubmit="return validate_form_23713()" method="post">
+<input type="text" name="answer_23713"><br><input type="submit" value="check">
 </form>
-<p id="result_64541">
+<p id="result_23713">
 </p>
-<script> function validate_form_64541() {var x, text; var x = document.forms["form_64541"]["answer_64541"].value;if (x == "0.06"){text = 'Correct';} else {text = 'I have a different answer';} document.getElementById('result_64541').innerHTML = text; return false;} </script>
+<script> function validate_form_23713() {var x, text; var x = document.forms["form_23713"]["answer_23713"].value;if (x == "0.06"){text = 'Correct';} else {text = 'I have a different answer';} document.getElementById('result_23713').innerHTML = text; return false;} </script>
 </div>
 <div id="функция-правдоподобия" class="section level2" number="3.2">
 <h2><span class="header-section-number">3.2</span> Функция правдоподобия</h2>
@@ -442,7 +452,7 @@ lambda 2.782715 0.02128182</code></pre>
 Coretta, Stefano. 2016. <span>“Vowel Duration and Aspiration Effects in Icelandic.”</span> University of York.
 </div>
 <div id="ref-hillenbrand95" class="csl-entry">
-Hillenbrand, James, Laura A Getty, Michael J Clark, and Kimberlee Wheeler. 1995. <span>“Acoustic Characteristics of <span>A</span>merican <span>E</span>nglish Vowels.”</span> <em>The Journal of the Acoustical Society of America</em> 97 (5): 3099–3111.
+Hillenbrand, James, Laura A Getty, Michael J Clark, and Kimberlee Wheeler. 1995. <span>“Acoustic Characteristics of American English Vowels.”</span> <em>The Journal of the Acoustical Society of America</em> 97 (5): 3099–3111.
 </div>
 <div id="ref-rosenbach03" class="csl-entry">
 Rosenbach, Anette. 2003. <span>“Aspects of Iconicity and Economy in the Choice Between the <em>s-</em>Genitive and the <em>of-</em>Genitive in <span>E</span>nglish.”</span> In <em>Determinants of Grammatical Variation in English</em>, edited by Günter Rohdenburg and Britta Mondorf. Berlin, New York: Mouton de Gruyter.
