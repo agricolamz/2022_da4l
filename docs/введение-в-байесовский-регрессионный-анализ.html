@@ -4,11 +4,11 @@
 
   <meta charset="utf-8" />
   <meta http-equiv="X-UA-Compatible" content="IE=edge" />
-  <title>Page not found | Анализ данных для лингвистов</title>
-  <meta name="description" content="Page not found | Анализ данных для лингвистов" />
+  <title>10 Введение в байесовский регрессионный анализ | Анализ данных для лингвистов</title>
+  <meta name="description" content="10 Введение в байесовский регрессионный анализ | Анализ данных для лингвистов" />
   <meta name="generator" content="bookdown 0.24 and GitBook 2.6.7" />
 
-  <meta property="og:title" content="Page not found | Анализ данных для лингвистов" />
+  <meta property="og:title" content="10 Введение в байесовский регрессионный анализ | Анализ данных для лингвистов" />
   <meta property="og:type" content="book" />
   
   
@@ -16,7 +16,7 @@
   
 
   <meta name="twitter:card" content="summary" />
-  <meta name="twitter:title" content="Page not found | Анализ данных для лингвистов" />
+  <meta name="twitter:title" content="10 Введение в байесовский регрессионный анализ | Анализ данных для лингвистов" />
   
   
   
@@ -30,8 +30,8 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-
-
+<link rel="prev" href="введение-в-марковские-цепи-монте-карло.html"/>
+<link rel="next" href="ссылки-на-литературу.html"/>
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
 <script src="https://cdn.jsdelivr.net/npm/fuse.js@6.4.6/dist/fuse.min.js"></script>
@@ -54,10 +54,6 @@
 <script src="libs/pagedtable-1.1/js/pagedtable.js"></script>
 <link href="libs/anchor-sections-1.0.1/anchor-sections.css" rel="stylesheet" />
 <script src="libs/anchor-sections-1.0.1/anchor-sections.js"></script>
-<script src="libs/htmlwidgets-1.5.4/htmlwidgets.js"></script>
-<script src="libs/viz-1.8.2/viz.js"></script>
-<link href="libs/DiagrammeR-styles-0.2/styles.css" rel="stylesheet" />
-<script src="libs/grViz-binding-1.0.8/grViz.js"></script>
 
 
 <style type="text/css">
@@ -125,28 +121,6 @@ code span.vs { color: #4070a0; } /* VerbatimString */
 code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warning */
 </style>
 
-<style type="text/css">
-/* Used with Pandoc 2.11+ new --citeproc when CSL is used */
-div.csl-bib-body { }
-div.csl-entry {
-  clear: both;
-}
-.hanging div.csl-entry {
-  margin-left:2em;
-  text-indent:-2em;
-}
-div.csl-left-margin {
-  min-width:2em;
-  float:left;
-}
-div.csl-right-inline {
-  margin-left:2em;
-  padding-left:1em;
-}
-div.csl-indent {
-  margin-left: 2em;
-}
-</style>
 
 <link rel="stylesheet" href="style.css" type="text/css" />
 </head>
@@ -249,20 +223,9 @@ div.csl-indent {
 <li class="chapter" data-level="9.4.1" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#регрессионный-пример"><i class="fa fa-check"></i><b>9.4.1</b> Регрессионный пример</a></li>
 </ul></li>
 </ul></li>
-<li class="chapter" data-level="10" data-path="ограничения-на-применение-регрессии.html"><a href="ограничения-на-применение-регрессии.html"><i class="fa fa-check"></i><b>10</b> Ограничения на применение регрессии</a>
+<li class="chapter" data-level="10" data-path="введение-в-байесовский-регрессионный-анализ.html"><a href="введение-в-байесовский-регрессионный-анализ.html"><i class="fa fa-check"></i><b>10</b> Введение в байесовский регрессионный анализ</a>
 <ul>
-<li class="chapter" data-level="10.1" data-path="ограничения-на-применение-регрессии.html"><a href="ограничения-на-применение-регрессии.html#основы-регрессионного-анализа"><i class="fa fa-check"></i><b>10.1</b> Основы регрессионного анализа</a></li>
-<li class="chapter" data-level="10.2" data-path="ограничения-на-применение-регрессии.html"><a href="ограничения-на-применение-регрессии.html#нелинейность-взаимосвязи"><i class="fa fa-check"></i><b>10.2</b> Нелинейность взаимосвязи</a>
-<ul>
-<li class="chapter" data-level="10.2.1" data-path="ограничения-на-применение-регрессии.html"><a href="ограничения-на-применение-регрессии.html#логарифмирование"><i class="fa fa-check"></i><b>10.2.1</b> Логарифмирование</a></li>
-</ul></li>
-<li class="chapter" data-level="10.3" data-path="ограничения-на-применение-регрессии.html"><a href="ограничения-на-применение-регрессии.html#нормальность-распределение-остатков"><i class="fa fa-check"></i><b>10.3</b> Нормальность распределение остатков</a></li>
-<li class="chapter" data-level="10.4" data-path="ограничения-на-применение-регрессии.html"><a href="ограничения-на-применение-регрессии.html#гетероскидастичность"><i class="fa fa-check"></i><b>10.4</b> Гетероскидастичность</a></li>
-<li class="chapter" data-level="10.5" data-path="ограничения-на-применение-регрессии.html"><a href="ограничения-на-применение-регрессии.html#мультиколлинеарность"><i class="fa fa-check"></i><b>10.5</b> Мультиколлинеарность</a></li>
-<li class="chapter" data-level="10.6" data-path="ограничения-на-применение-регрессии.html"><a href="ограничения-на-применение-регрессии.html#независимость-наблюдений"><i class="fa fa-check"></i><b>10.6</b> Независимость наблюдений</a>
-<ul>
-<li class="chapter" data-level="10.6.1" data-path="ограничения-на-применение-регрессии.html"><a href="ограничения-на-применение-регрессии.html#линейная-модель-со-смешанными-эффектами"><i class="fa fa-check"></i><b>10.6.1</b> Линейная модель со смешанными эффектами</a></li>
-</ul></li>
+<li class="chapter" data-level="10.1" data-path="введение-в-байесовский-регрессионный-анализ.html"><a href="введение-в-байесовский-регрессионный-анализ.html#простые-случаи-регрессионного-анализа"><i class="fa fa-check"></i><b>10.1</b> Простые случаи регрессионного анализа</a></li>
 </ul></li>
 <li class="chapter" data-level="" data-path="ссылки-на-литературу.html"><a href="ссылки-на-литературу.html"><i class="fa fa-check"></i>Ссылки на литературу</a></li>
 </ul>
@@ -282,19 +245,42 @@ div.csl-indent {
           <div class="page-inner">
 
             <section class="normal" id="section-">
-<div id="page-not-found" class="section level1">
-<h1>Page not found</h1>
-<p>The page you requested cannot be found (perhaps it was moved or renamed).</p>
-<p>You may want to try searching to find the page's new location, or use
-the table of contents to find the page you are looking for.</p>
+<div id="введение-в-байесовский-регрессионный-анализ" class="section level1" number="10">
+<h1><span class="header-section-number">10</span> Введение в байесовский регрессионный анализ</h1>
+<div class="sourceCode" id="cb1"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb1-1"><a href="введение-в-байесовский-регрессионный-анализ.html#cb1-1" aria-hidden="true" tabindex="-1"></a><span class="fu">library</span>(tidyverse)</span></code></pre></div>
+<p>Чтобы повторить примеры Вам понадобиться:</p>
+<ul>
+<li>Установить на свой компьютер <code>rstan</code> (<a href="https://github.com/stan-dev/rstan/wiki/RStan-Getting-Started">инструкции</a>) и <code>brms</code></li>
+</ul>
+<p>Если на вашем компьютере не выходит, попробуйте &lt;rstudio.cloud&gt;</p>
+<div id="простые-случаи-регрессионного-анализа" class="section level2" number="10.1">
+<h2><span class="header-section-number">10.1</span> Простые случаи регрессионного анализа</h2>
+<p><img src="da4l_files/figure-html/unnamed-chunk-2-1.png" width="672" /></p>
+<p>Когда мы используем регрессионный анализ, мы пытаемся оценить два параметра:</p>
+<ul>
+<li>свободный член (intercept);</li>
+<li>угловой коэффициент (slope).</li>
+</ul>
+<p><span class="math display">\[y_i = \beta_0 + \beta_1\times x_i + \epsilon_i\]</span></p>
+<p>Причем, иногда мы можем один или другой параметр считать равным нулю.</p>
+<p>При этом, вне зависимости от статистической школы, у регрессии есть свои ограничения на применение:</p>
+<ul>
+<li>линейность связи между <span class="math inline">\(x\)</span> и <span class="math inline">\(y\)</span>;</li>
+<li>нормальность распределение остатков <span class="math inline">\(\epsilon_i\)</span>;</li>
+<li>гомоскидастичность — равномерное распределение остатков на всем протяжении <span class="math inline">\(x\)</span>;</li>
+<li>независимость переменных;</li>
+<li>независимость наблюдений друг от друга.</li>
+</ul>
+
+</div>
 </div>
             </section>
 
           </div>
         </div>
       </div>
-
-
+<a href="введение-в-марковские-цепи-монте-карло.html" class="navigation navigation-prev " aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ссылки-на-литературу.html" class="navigation navigation-next " aria-label="Next page"><i class="fa fa-angle-right"></i></a>
     </div>
   </div>
 <script src="libs/gitbook-2.6.7/js/app.min.js"></script>
@@ -315,7 +301,7 @@ gitbook.start({
 "size": 2
 },
 "edit": {
-"link": "https://github.com/agricolamz/2022_da4l/edit/master/%s",
+"link": "https://github.com/agricolamz/2022_da4l/edit/master/09-Bayesian_Regression.Rmd",
 "text": "Edit"
 },
 "history": {

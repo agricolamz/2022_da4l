@@ -30,7 +30,7 @@
   <meta name="apple-mobile-web-app-status-bar-style" content="black" />
   
   
-<link rel="prev" href="введение-в-марковские-цепи-монте-карло.html"/>
+<link rel="prev" href="ограничения-на-применение-регрессии.html"/>
 
 <script src="libs/header-attrs-2.11/header-attrs.js"></script>
 <script src="libs/jquery-3.6.0/jquery-3.6.0.min.js"></script>
@@ -249,6 +249,21 @@ div.csl-indent {
 <li class="chapter" data-level="9.4.1" data-path="введение-в-марковские-цепи-монте-карло.html"><a href="введение-в-марковские-цепи-монте-карло.html#регрессионный-пример"><i class="fa fa-check"></i><b>9.4.1</b> Регрессионный пример</a></li>
 </ul></li>
 </ul></li>
+<li class="chapter" data-level="10" data-path="ограничения-на-применение-регрессии.html"><a href="ограничения-на-применение-регрессии.html"><i class="fa fa-check"></i><b>10</b> Ограничения на применение регрессии</a>
+<ul>
+<li class="chapter" data-level="10.1" data-path="ограничения-на-применение-регрессии.html"><a href="ограничения-на-применение-регрессии.html#основы-регрессионного-анализа"><i class="fa fa-check"></i><b>10.1</b> Основы регрессионного анализа</a></li>
+<li class="chapter" data-level="10.2" data-path="ограничения-на-применение-регрессии.html"><a href="ограничения-на-применение-регрессии.html#нелинейность-взаимосвязи"><i class="fa fa-check"></i><b>10.2</b> Нелинейность взаимосвязи</a>
+<ul>
+<li class="chapter" data-level="10.2.1" data-path="ограничения-на-применение-регрессии.html"><a href="ограничения-на-применение-регрессии.html#логарифмирование"><i class="fa fa-check"></i><b>10.2.1</b> Логарифмирование</a></li>
+</ul></li>
+<li class="chapter" data-level="10.3" data-path="ограничения-на-применение-регрессии.html"><a href="ограничения-на-применение-регрессии.html#нормальность-распределение-остатков"><i class="fa fa-check"></i><b>10.3</b> Нормальность распределение остатков</a></li>
+<li class="chapter" data-level="10.4" data-path="ограничения-на-применение-регрессии.html"><a href="ограничения-на-применение-регрессии.html#гетероскидастичность"><i class="fa fa-check"></i><b>10.4</b> Гетероскидастичность</a></li>
+<li class="chapter" data-level="10.5" data-path="ограничения-на-применение-регрессии.html"><a href="ограничения-на-применение-регрессии.html#мультиколлинеарность"><i class="fa fa-check"></i><b>10.5</b> Мультиколлинеарность</a></li>
+<li class="chapter" data-level="10.6" data-path="ограничения-на-применение-регрессии.html"><a href="ограничения-на-применение-регрессии.html#независимость-наблюдений"><i class="fa fa-check"></i><b>10.6</b> Независимость наблюдений</a>
+<ul>
+<li class="chapter" data-level="10.6.1" data-path="ограничения-на-применение-регрессии.html"><a href="ограничения-на-применение-регрессии.html#линейная-модель-со-смешанными-эффектами"><i class="fa fa-check"></i><b>10.6.1</b> Линейная модель со смешанными эффектами</a></li>
+</ul></li>
+</ul></li>
 <li class="chapter" data-level="" data-path="ссылки-на-литературу.html"><a href="ссылки-на-литературу.html"><i class="fa fa-check"></i>Ссылки на литературу</a></li>
 </ul>
 
@@ -287,10 +302,19 @@ Hillenbrand, James, Laura A Getty, Michael J Clark, and Kimberlee Wheeler. 1995.
 Moran, Steven, Daniel McCloy, and Richard Wright, eds. 2014. <em>PHOIBLE Online</em>. Leipzig: Max Planck Institute for Evolutionary Anthropology. <a href="https://phoible.org/">https://phoible.org/</a>.
 </div>
 <div class="csl-entry">
+Robert, C., and G. Casella. 2011. <span>“A Short History of Markov Chain Monte Carlo: Subjective Recollections from Incomplete Data.”</span> <em>Statistical Science</em> 26 (1): 102–15.
+</div>
+<div class="csl-entry">
 Robinson, D. 2017. <em>Introduction to Empirical Bayes: Examples from Baseball Statistics</em>. ASIN: B06WP26J8Q.
 </div>
 <div class="csl-entry">
 Rosenbach, Anette. 2003. <span>“Aspects of Iconicity and Economy in the Choice Between the <em>s-</em>Genitive and the <em>of-</em>Genitive in <span>E</span>nglish.”</span> In <em>Determinants of Grammatical Variation in English</em>, edited by Günter Rohdenburg and Britta Mondorf. Berlin, New York: Mouton de Gruyter.
+</div>
+<div class="csl-entry">
+Zeman, D., J. Nivre, Mitchell Abrams, Elia Ackermann, Noëmi Aepli, Hamid Aghaei, Željko Agić, et al. 2020. <span>“Universal Dependencies 2.7.”</span> <a href="http://hdl.handle.net/11234/1-3424">http://hdl.handle.net/11234/1-3424</a>.
+</div>
+<div class="csl-entry">
+Ляшевская, О. Н., and С. А. Шаров. 2009. <em>Частотный словарь современного русского языка: На материалах <span>Н</span>ационального корпуса русского языка</em>. Азбуковник.
 </div>
 </div>
 </div>
@@ -305,7 +329,7 @@ Rosenbach, Anette. 2003. <span>“Aspects of Iconicity and Economy in the Choice
           </div>
         </div>
       </div>
-<a href="введение-в-марковские-цепи-монте-карло.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
+<a href="ограничения-на-применение-регрессии.html" class="navigation navigation-prev navigation-unique" aria-label="Previous page"><i class="fa fa-angle-left"></i></a>
 
     </div>
   </div>
