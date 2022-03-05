@@ -446,9 +446,48 @@ code span.wa { color: #60a0b0; font-weight: bold; font-style: italic; } /* Warni
 ## scale reduction factor on split chains (at convergence, Rhat = 1).</code></pre>
 <div class="sourceCode" id="cb10"><pre class="sourceCode r"><code class="sourceCode r"><span id="cb10-1"><a href="байесовский-регрессионный-анализ.html#cb10-1" aria-hidden="true" tabindex="-1"></a><span class="fu">plot</span>(fit_intercept)</span></code></pre></div>
 <p><img src="da4l_files/figure-html/unnamed-chunk-6-1.png" width="672" /></p>
+<p>Взято <a href="https://mc-stan.org/misc/warnings.html#divergent-transitions-after-warmup">остюда</a>:</p>
+<div id="r-hat" class="section level4 hasAnchor" number="11.2.1.1">
+<h4><span class="header-section-number">11.2.1.1</span> R-hat<a href="байесовский-регрессионный-анализ.html#r-hat" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>R-hat convergence diagnostic compares the between- and within-chain estimates for model parameters and other univariate quantities of interest. If chains have not mixed well (ie, the between- and within-chain estimates don’t agree), R-hat is larger than 1. We recommend running at least four chains by default and only using the sample if R-hat is less than 1.01. Stan reports R-hat which is the maximum of rank normalized split-R-hat and rank normalized folded-split-R-hat, which works for thick tailed distributions and is sensitive also to differences in scale. For more details on this diagnostic, see <a href="https://arxiv.org/abs/1903.08008" class="uri">https://arxiv.org/abs/1903.08008</a>.</p>
+<p>Recommendations:</p>
+<ul>
+<li>Look at Bulk- and Tail-ESS for further information.</li>
+<li>Look at the rank plot to see how the chains differ from each other.</li>
+<li>Look at the local and quantile efficiency plots.</li>
+<li>You might try setting a higher value for the iter argument. By default iter is 2000</li>
+</ul>
+</div>
+<div id="bulk-ess" class="section level4 hasAnchor" number="11.2.1.2">
+<h4><span class="header-section-number">11.2.1.2</span> Bulk ESS<a href="байесовский-регрессионный-анализ.html#bulk-ess" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Roughly speaking, the effective sample size (ESS) of a quantity of interest captures how many independent draws contain the same amount of information as the dependent sample obtained by the MCMC algorithm. Clearly, the higher the ESS the better. Stan uses R-hat adjustment to use the between-chain information in computing the ESS. For example, in case of multimodal distributions with well-separated modes, this leads to an ESS estimate that is close to the number of distinct modes that are found.</p>
+<p>Bulk-ESS refers to the effective sample size based on the rank normalized draws. This does not directly compute the ESS relevant for computing the mean of the parameter, but instead computes a quantity that is well defined even if the chains do not have finite mean or variance. Overall bulk-ESS estimates the sampling efficiency for the location of the distribution (e.g. mean and median).</p>
+<p>Often quite smaller ESS would be sufficient for the desired estimation accuracy, but the estimation of ESS and convergence diagnostics themselves require higher ESS. We recommend requiring that the bulk-ESS is greater than 100 times the number of chains. For example, when running four chains, this corresponds to having a rank-normalized effective sample size of at least 400.</p>
+<p>Recommendations:</p>
+<ul>
+<li>You might try setting a higher value for the iter argument. By default iter is 2000</li>
+<li>Look at the rank plot to see how the chains differ from each other.</li>
+<li>Look at the local and quantile efficiency plots.</li>
+<li>Look at change in bulk-ESS when the number of iterations increase. If R-hat is less than 1.01 and bulk-ESS grows linearly with the number of iterations and eventually exceeds the recommended limit, the mixing is sufficient but MCMC has high autocorrelation requiring a large number of iterations</li>
+</ul>
+</div>
+<div id="tail-ess" class="section level4 hasAnchor" number="11.2.1.3">
+<h4><span class="header-section-number">11.2.1.3</span> Tail ESS<a href="байесовский-регрессионный-анализ.html#tail-ess" class="anchor-section" aria-label="Anchor link to header"></a></h4>
+<p>Tail-ESS computes the minimum of the effective sample sizes (ESS) of the 5% and 95% quantiles. Tail-ESS can help diagnosing problems due to different scales of the chains and slow mixing in the tails. See also general information about ESS above in description of bulk-ESS.</p>
+<p>Recommendations:</p>
+<ul>
+<li>You might try setting a higher value for the iter argument. By default iter is 2000</li>
+<li>Look at the rank plot to see how the chains differ from each other.</li>
+<li>Look at the local and quantile efficiency plots.</li>
+<li>Look at change in tail-ESS when the number of iterations increase. If R-hat is less than 1.01 and tail-ESS grows linearly with the number of iterations and eventually exceeds the recommended limit, the mixing is sufficient but MCMC has high autocorrelation requiring a large number of iterations</li>
+</ul>
+</div>
+<div id="вернемся-к-нашим-баранам" class="section level4 hasAnchor" number="11.2.1.4">
+<h4><span class="header-section-number">11.2.1.4</span> Вернемся к нашим баранам<a href="байесовский-регрессионный-анализ.html#вернемся-к-нашим-баранам" class="anchor-section" aria-label="Anchor link to header"></a></h4>
 <p>Давайте посмотрим на наши данные:</p>
 <p><img src="da4l_files/figure-html/unnamed-chunk-7-1.png" width="672" /></p>
 <p><a href="https://cs.pikabu.ru/post_img/2013/05/08/10/1368028088_2034545627.jpg">Оригинал мема</a>. Вот <a href="https://demotions.ru/38886--nu-dopustim-myau.html">еще один</a>.</p>
+</div>
 </div>
 <div id="модель-только-с-угловым-коэффициентом" class="section level3 hasAnchor" number="11.2.2">
 <h3><span class="header-section-number">11.2.2</span> Модель только с угловым коэффициентом<a href="байесовский-регрессионный-анализ.html#модель-только-с-угловым-коэффициентом" class="anchor-section" aria-label="Anchor link to header"></a></h3>
