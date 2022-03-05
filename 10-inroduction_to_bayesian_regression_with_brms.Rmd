@@ -1,0 +1,120 @@
+---
+editor_options: 
+  chunk_output_type: console
+---
+
+# Байесовский регрессионный анализ
+
+```{r setup10, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE, message = FALSE)
+library(tidyverse)
+theme_set(theme_bw())
+```
+
+```{r}
+library(tidyverse)
+```
+
+## Основы регрессионного анализа
+
+```{r, echo=FALSE, warning=FALSE}
+set.seed(42)
+tibble(x = rnorm(150)+1) %>% 
+  mutate(y = 5*x+10+rnorm(100, sd = 2)) %>% 
+  ggplot(aes(x, y))+
+  geom_point()+
+  geom_hline(yintercept = 0, linetype = 2)+
+  geom_vline(xintercept = 0, linetype = 2)+
+  geom_smooth(method = "lm", se = FALSE)+
+  annotate(geom = "point", x = 0, y = 10, size = 4, color = "red")+
+  annotate(geom = "label", x = -0.5, y = 12, size = 5, color = "red", label = "intercept")+
+  annotate(geom = "label", x = 2, y = 12.5, size = 5, color = "red", label = "slope")+
+  scale_x_continuous(breaks = -2:4)+
+  scale_y_continuous(breaks = c(0:3*10, 15))
+pBrackets::grid.brackets(815, 420, 815, 545, lwd=2, col="red")
+```
+
+Когда мы используем регрессионный анализ, мы пытаемся оценить два параметра:
+
+* свободный член (intercept) -- значение $y$ при $x = 0$;
+* угловой коэффициент (slope) -- изменение $y$ при изменении $x$ на одну единицу.
+
+$$y_i = \beta_0 + \beta_1\times x_i + \epsilon_i$$
+
+Причем, иногда мы можем один или другой параметр считать равным нулю.
+
+При этом, вне зависимости от статистической школы, у регрессии есть свои ограничения на применение:
+
+* линейность связи между $x$ и $y$;
+* нормальность распределение остатков $\epsilon_i$;
+* гомоскидастичность --- равномерность распределения остатков на всем протяжении $x$;
+* независимость переменных;
+* независимость наблюдений друг от друга.
+
+## `brms`
+
+Для анализа возьмем датасет, который я составил из UD-корпусов и попробуем смоделировать связь между количеством слов в тексте и количеством уникальных слов ([закон Хердана-Хипса](https://en.wikipedia.org/wiki/Heaps%27_law)).
+
+```{r}
+ud <- read_csv("https://raw.githubusercontent.com/agricolamz/udpipe_count_n_words_and_tokens/master/filtered_dataset.csv")
+glimpse(ud)
+```
+
+Для начала, нарушим кучу ограничений на применение регрессии и смоделируем модель для вот таких вот данных, взяв только тексты меньше 1500 слов:
+
+```{r}
+ud %>%
+  filter(n_words < 1500) ->
+  ud
+
+ud %>% 
+  ggplot(aes(n_words, n_tokens))+
+  geom_point()
+```
+
+### Модель только со свободным членом
+
+```{r}
+library(brms)
+get_prior(n_tokens ~ 1, 
+          family = "normal",
+          data = ud)
+```
+
+Вот модель с встроенными априорными распределениями:
+
+```{r brm_intercept, cache = TRUE, message=FALSE, warning=FALSE}
+fit_intercept <- brm(n_tokens ~ 1, 
+                     family = "normal",
+                     data = ud,
+                     silent = TRUE)
+```
+
+При желании встроенные априорные расспеределения можно не использовать и вставлять в аргумент `prior` априорные распределения по вашему желанию.
+
+```{r}
+fit_intercept
+
+plot(fit_intercept)
+```
+
+Давайте посмотрим на наши данные:
+
+```{r, echo=FALSE}
+as_draws_array(fit_intercept) %>% 
+  as_tibble() %>% 
+  select(contains("b_Intercept")) %>% 
+  pivot_longer(values_to = "n_words", names_to = "chain", everything()) %>% 
+  ggplot(aes(n_words))+
+  annotate(geom = "label", x = 800, y = 3000, label = "Ну, предположим, ква", size = 8)+
+  geom_histogram(data = ud, alpha = 0.4)+
+  geom_histogram(fill = "steelblue")+
+  labs(x = "количество слов", y = "", subtitle = "Серое -- данные, синие -- апостериорное распределение")
+```
+
+[Оригинал мема](https://cs.pikabu.ru/post_img/2013/05/08/10/1368028088_2034545627.jpg). Вот [еще один](https://demotions.ru/38886--nu-dopustim-myau.html).
+
+### Модель только с угловым коэффициентом
+
+### Модель с угловым коэффициентом и свободным членом
+

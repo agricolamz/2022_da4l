@@ -168,8 +168,7 @@ tibble(ln_mu = seq(5, 6, by = 0.001)) %>%
 
 * данные длительности американских гласных из [@hillenbrand95] и логнормальное распределение
 ```{r}
-library(fitdistrplus)
-fitdist(vowels$dur, distr = 'lnorm', method = 'mle')
+fitdistrplus::fitdist(vowels$dur, distr = 'lnorm', method = 'mle')
 ```
 
 * количество андийских слогов в словах и распределение Пуассона
@@ -180,7 +179,7 @@ andic_syllables %>%
   filter(language == "Andi") %>% 
   uncount(count) %>% 
   pull(n_syllables) %>% 
-  fitdist(distr = 'pois', method = 'mle')
+  fitdistrplus::fitdist(distr = 'pois', method = 'mle')
 ```
 
 * Есть и другие методы оценки параметров.
@@ -204,8 +203,8 @@ df %>%
   pull(vowel.dur) ->
   vowel_dur
 
-lnorm_params <- fitdist(vowel_dur, distr = 'lnorm', method = 'mle')
-norm_params <- fitdist(vowel_dur, distr = 'norm', method = 'mle')
+lnorm_params <- fitdistrplus::fitdist(vowel_dur, distr = 'lnorm', method = 'mle')
+norm_params <- fitdistrplus::fitdist(vowel_dur, distr = 'norm', method = 'mle')
 
 tibble(vowel_dur) %>% 
   ggplot(aes(vowel_dur))+
@@ -285,11 +284,5 @@ tibble(p = seq(0.01, 0.99, 0.01),
   geom_vline(xintercept = 0.59, linetype = 2)+
   facet_wrap(~type, scales = "free_y", nrow = 2)+
   scale_x_continuous(breaks = c(0:5*0.25, 0.59))
-```
-
-
-```{r, include = FALSE}
-detach("package:fitdistrplus", unload = TRUE)
-detach("package:MASS", unload = TRUE)
 ```
 

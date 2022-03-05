@@ -63,7 +63,6 @@ mikhalevskaja %>%
 Мы можем провести байесовский апдейт, но для этого нам нужно априорное распределение. Трюк, который предлагает байесовская эмпирическая оценка заключается в том, что априорное распределение можно попробовать получить на основании данных:
 
 ```{r, message=FALSE}
-library(fitdistrplus)
 mikhalevskaja %>% 
   filter(feature == "a-e") %>% 
   mutate(ratio = conservative/total) %>% 
@@ -71,7 +70,7 @@ mikhalevskaja %>%
          ratio != 1) ->
   for_beta_estimation 
   
-beta_est <- fitdist(for_beta_estimation$ratio, distr = 'beta', method = 'mle')
+beta_est <- fitdistrplus::fitdist(for_beta_estimation$ratio, distr = 'beta', method = 'mle')
 beta_est
 ```
 
@@ -136,8 +135,7 @@ mikhalevskaja %>%
 read_csv("https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/Coretta_2017_icelandic.csv") ->
   vowels
 
-library(fitdistrplus)
-beta_est <- fitdist(vowels$vowel.dur, distr = 'norm', method = 'mle')
+beta_est <- fitdistrplus::fitdist(vowels$vowel.dur, distr = 'norm', method = 'mle')
 
 vowels %>% 
   filter(speaker == "tt01") ->

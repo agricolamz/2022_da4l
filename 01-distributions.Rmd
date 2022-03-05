@@ -3,7 +3,6 @@ editor_options:
   chunk_output_type: console
 ---
 
-# (PART) Основы байесовской статистики {-}
 
 ```{r setup01, include=FALSE}
 knitr::opts_chunk$set(message = FALSE, warning = FALSE, comment = "")
