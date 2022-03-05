@@ -77,7 +77,6 @@ ud %>%
 ```{r}
 library(brms)
 get_prior(n_tokens ~ 1, 
-          family = "normal",
           data = ud)
 ```
 
@@ -85,7 +84,6 @@ get_prior(n_tokens ~ 1,
 
 ```{r brm_intercept, cache = TRUE, message=FALSE, warning=FALSE}
 fit_intercept <- brm(n_tokens ~ 1, 
-                     family = "normal",
                      data = ud,
                      silent = TRUE)
 ```
@@ -94,7 +92,6 @@ fit_intercept <- brm(n_tokens ~ 1,
 
 ```{r}
 fit_intercept
-
 plot(fit_intercept)
 ```
 
@@ -116,5 +113,113 @@ as_draws_array(fit_intercept) %>%
 
 ### Модель только с угловым коэффициентом
 
+```{r}
+get_prior(n_tokens ~ n_words+0,
+          data = ud)
+```
+
+```{r brm_slope, cache=TRUE}
+fit_slope <- brm(n_tokens ~ n_words+0, 
+                 data = ud,
+                 silent = TRUE)
+```
+
+```{r}
+fit_slope
+plot(fit_slope)
+```
+
+Давайте совместим предсказания модели и наши наблюдения.
+
+```{r}
+predict(fit_slope, newdata = tibble(n_words = 0:1500)) %>% 
+  as_tibble() %>% 
+  mutate(n_words = 0:1500) ->
+  fit_slope_predictions
+
+ud %>% 
+  ggplot(aes(n_words, n_tokens))+
+  geom_smooth(data = fit_slope_predictions,
+              aes(y = Estimate, ymin = Q2.5, ymax = Q97.5),
+              stat = "identity") +
+    geom_point(alpha = 0.3)
+```
+
 ### Модель с угловым коэффициентом и свободным членом
+
+```{r}
+get_prior(n_tokens ~ n_words,
+          data = ud)
+```
+
+```{r brm_slope_intercept, cache=TRUE}
+fit_slope_intercept <- brm(n_tokens ~ n_words,
+                           
+                           data = ud)
+```
+
+```{r}
+fit_slope_intercept
+plot(fit_slope_intercept)
+predict(fit_slope_intercept, newdata = tibble(n_words = 0:1500)) %>% 
+  as_tibble() %>% 
+  mutate(n_words = 0:1500) ->
+  fit_slope_intercept_predictions
+
+ud %>% 
+  ggplot(aes(n_words, n_tokens))+
+  geom_smooth(data = fit_slope_intercept_predictions,
+              aes(y = Estimate, ymin = Q2.5, ymax = Q97.5),
+              stat = "identity") +
+    geom_point(alpha = 0.3)
+```
+
+### Модель со смешанными эффектами
+
+В данных есть группировка по языкам, которую мы все это время игнорировали. Давайте сделаем модель со смешанными эффектами:
+
+
+```{r}
+get_prior(n_tokens ~ n_words+(1|language),
+          data = ud)
+```
+
+```{r mixed, cache=TRUE}
+fit_mixed <- brm(n_tokens ~ n_words + (1|language),
+                 data = ud)
+```
+
+```{r}
+fit_mixed
+plot(fit_mixed)
+```
+
+```{r}
+new_data <- tibble(n_words = rep(0:1500, length(unique(ud$language))),
+                         language = rep(unique(ud$language), each = 1501))
+
+predict(fit_mixed, 
+        newdata = new_data) %>% 
+  as_tibble() %>% 
+  bind_cols(new_data) ->
+  fit_mixed_predictions
+
+ud %>% 
+  ggplot(aes(n_words, n_tokens))+
+  geom_smooth(data = fit_mixed_predictions,
+              aes(y = Estimate, ymin = Q2.5, ymax = Q97.5),
+              stat = "identity") +
+  geom_point(alpha = 0.3)+
+  facet_wrap(~language)
+```
+
+То, что получилось учитывает общий эффект: посмотрите на каталанский. Если построить модель по каждому языку, то получится совсем другая картина:
+
+```{r}
+ud %>% 
+  ggplot(aes(n_words, n_tokens))+
+  geom_smooth(method = "lm") +
+  geom_point(alpha = 0.3)+
+  facet_wrap(~language)
+```
 
