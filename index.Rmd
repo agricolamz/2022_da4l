@@ -28,7 +28,7 @@ biblio-style: apalike
 * вместо одиннадцатой лекции можно посмотреть [запись лекции 2021.02.19](https://youtu.be/6bERf7DMvfg)
 * вместо двеннадцатой лекции можно посмотреть [запись лекции 2021.02.24](https://youtu.be/I80UaVOmpxY)
 * вместо треннадцатой и четырнадцатой лекций можно посмотреть вот эти видео: [часть 1](https://youtu.be/_IltMx042DE), [часть 2](https://youtu.be/1qbk5dATogc)
-
+* вместо пятнадцатой и шестнадцатой лекций можно посмотреть запись лекции 2021
 
 ## Используемые пакеты
 
@@ -42,6 +42,10 @@ packageVersion("car")
 packageVersion("pscl")
 packageVersion("nnet")
 packageVersion("MASS")
+packageVersion("ggeffects")
+packageVersion("brms")
+packageVersion("tidybayes")
+
 ```
 
 ## Домашние задания

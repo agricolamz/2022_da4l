@@ -76,6 +76,9 @@ ud %>%
 
 ```{r}
 library(brms)
+parallel::detectCores()
+n_cores <- 7 # parallel::detectCores() - 1
+
 get_prior(n_tokens ~ 1, 
           data = ud)
 ```
@@ -85,7 +88,7 @@ get_prior(n_tokens ~ 1,
 ```{r brm_intercept, cache = TRUE, message=FALSE, warning=FALSE}
 fit_intercept <- brm(n_tokens ~ 1, 
                      data = ud,
-                     silent = TRUE)
+                     cores = n_cores, refresh = 0, silent = TRUE)
 ```
 
 При желании встроенные априорные расспеределения можно не использовать и вставлять в аргумент `prior` априорные распределения по вашему желанию.
@@ -162,7 +165,7 @@ get_prior(n_tokens ~ n_words+0,
 ```{r brm_slope, cache=TRUE}
 fit_slope <- brm(n_tokens ~ n_words+0, 
                  data = ud,
-                 silent = TRUE)
+                 cores = n_cores, refresh = 0, silent = TRUE)
 ```
 
 ```{r}
@@ -173,17 +176,13 @@ plot(fit_slope)
 Давайте совместим предсказания модели и наши наблюдения.
 
 ```{r}
-predict(fit_slope, newdata = tibble(n_words = 0:1500)) %>% 
-  as_tibble() %>% 
-  mutate(n_words = 0:1500) ->
-  fit_slope_predictions
+library(tidybayes)
 
 ud %>% 
+  add_epred_draws(fit_slope, ndraws = 50) %>%  
   ggplot(aes(n_words, n_tokens))+
-  geom_smooth(data = fit_slope_predictions,
-              aes(y = Estimate, ymin = Q2.5, ymax = Q97.5),
-              stat = "identity") +
-    geom_point(alpha = 0.3)
+  geom_point(alpha = 0.01)+
+  stat_lineribbon(aes(y = .epred), color = "red") 
 ```
 
 ### Модель с угловым коэффициентом и свободным членом
@@ -195,24 +194,19 @@ get_prior(n_tokens ~ n_words,
 
 ```{r brm_slope_intercept, cache=TRUE}
 fit_slope_intercept <- brm(n_tokens ~ n_words,
-                           
-                           data = ud)
+                           data = ud,
+                           cores = n_cores, refresh = 0, silent = TRUE)
 ```
 
 ```{r}
 fit_slope_intercept
 plot(fit_slope_intercept)
-predict(fit_slope_intercept, newdata = tibble(n_words = 0:1500)) %>% 
-  as_tibble() %>% 
-  mutate(n_words = 0:1500) ->
-  fit_slope_intercept_predictions
 
 ud %>% 
+  add_epred_draws(fit_slope_intercept, ndraws = 50) %>%  
   ggplot(aes(n_words, n_tokens))+
-  geom_smooth(data = fit_slope_intercept_predictions,
-              aes(y = Estimate, ymin = Q2.5, ymax = Q97.5),
-              stat = "identity") +
-    geom_point(alpha = 0.3)
+  geom_point(alpha = 0.01)+
+  stat_lineribbon(aes(y = .epred), color = "red") 
 ```
 
 ### Модель со смешанными эффектами
@@ -227,34 +221,22 @@ get_prior(n_tokens ~ n_words+(1|language),
 
 ```{r mixed, cache=TRUE}
 fit_mixed <- brm(n_tokens ~ n_words + (1|language),
-                 data = ud)
+                 data = ud,
+                 cores = n_cores, refresh = 0, silent = TRUE)
 ```
 
 ```{r}
 fit_mixed
 plot(fit_mixed)
-```
-
-```{r}
-new_data <- tibble(n_words = rep(0:1500, length(unique(ud$language))),
-                         language = rep(unique(ud$language), each = 1501))
-
-predict(fit_mixed, 
-        newdata = new_data) %>% 
-  as_tibble() %>% 
-  bind_cols(new_data) ->
-  fit_mixed_predictions
-
 ud %>% 
+  add_epred_draws(fit_mixed, ndraws = 50) %>%  
   ggplot(aes(n_words, n_tokens))+
-  geom_smooth(data = fit_mixed_predictions,
-              aes(y = Estimate, ymin = Q2.5, ymax = Q97.5),
-              stat = "identity") +
-  geom_point(alpha = 0.3)+
+  geom_point(alpha = 0.01)+
+  stat_lineribbon(aes(y = .epred), color = "red") +
   facet_wrap(~language)
 ```
 
-То, что получилось учитывает общий эффект: посмотрите на каталанский. Если построить модель по каждому языку, то получится совсем другая картина:
+То, что получилось учитывает общий эффект всех языков: посмотрите на каталанский. Если построить модель по каждому языку, то получится совсем другая картина:
 
 ```{r}
 ud %>% 
@@ -264,3 +246,37 @@ ud %>%
   facet_wrap(~language)
 ```
 
+```{block, type = "rmdtask"}
+В работе [@coretta2016] собраны [данные](https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/Coretta_2017_icelandic.csv) длительности исландских гласных. Используя байесовскую регрессию, смоделируйте длительность гласного (`vowel.dur`) в зависимости от аспирированности (`aspiration`) учитывая эффект носителя. Визуализируйте результаты модели
+```
+
+```{r, include=FALSE}
+vowels <- read_csv("https://raw.githubusercontent.com/agricolamz/2022_da4l/master/data/Coretta_2017_icelandic.csv")
+
+vowels %>% 
+  ggplot(aes(aspiration, vowel.dur))+
+  geom_violin()+
+  facet_wrap(~speaker)
+
+get_prior(vowel.dur ~ aspiration+(1|speaker),
+          data = vowels)
+```
+
+```{r vowels_fit, cache=TRUE, include=FALSE}
+vowels_fit <- brm(vowel.dur ~ aspiration+(1|speaker),
+                  data = vowels)
+```
+
+```{r, include=FALSE}
+vowels_fit
+plot(vowels_fit)
+```
+
+```{r, echo=FALSE}
+vowels %>% 
+  add_epred_draws(vowels_fit, ndraws = 50) %>%  
+  ggplot(aes(aspiration, vowel.dur))+
+  geom_violin()+
+  stat_lineribbon(aes(y = .epred)) +
+  facet_wrap(~speaker)
+```
